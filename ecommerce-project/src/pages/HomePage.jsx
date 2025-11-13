@@ -11,6 +11,8 @@ export function HomePage() {
         <>
             <title>Ecommerce Project</title>
 
+            <link rel="icon" href="home-favicon.png" type="image/x-icon"/>
+
             <Header />
 
             <div className="home-page">

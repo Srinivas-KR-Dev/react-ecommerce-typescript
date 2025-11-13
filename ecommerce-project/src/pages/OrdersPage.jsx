@@ -8,6 +8,8 @@ export function OrdersPage() {
         <>
             <title>Orders</title>
 
+            <link rel="icon" href="orders-favicon.png" type="image/x-icon"/>
+
             <Header />
 
             <div className="orders-page">
