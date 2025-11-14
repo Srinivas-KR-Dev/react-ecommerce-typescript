@@ -10,7 +10,7 @@ export function OrdersPage() {
         <>
             <title>Orders</title>
 
-            <link rel="icon" href="orders-favicon.png" type="image/x-icon"/>
+            <link rel="icon" href="orders-favicon.png" type="image/png"/>
 
             <Header />
 
