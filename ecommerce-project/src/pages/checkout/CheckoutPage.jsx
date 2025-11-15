@@ -10,7 +10,7 @@ export function CheckoutPage() {
 
             <link rel="icon" href="cart-favicon.png" type="image/png"/>
 
-            <CheckoutHeader />
+            <CheckoutHeader/>
 
             <div className="checkout-page">
                 <div className="page-title">Review your order</div>
