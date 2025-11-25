@@ -24,7 +24,7 @@ export function HomePage( {cart} ) {
 
         }
 
-
+     
         fetchHomeData();
 
     }, []);

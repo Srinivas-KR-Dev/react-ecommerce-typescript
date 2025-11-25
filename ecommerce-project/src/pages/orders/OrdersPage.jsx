@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { useState, useEffect, Fragment } from 'react';
+import { useState, useEffect} from 'react';
 import Header from '../../components/Header';
-import OrderDetails from './OrderDetails';
+import OrderGrid from './OrderGrid';
 import './OrdersPage.css';
 
 
@@ -50,7 +50,7 @@ export function OrdersPage ( {cart} ) {
 
                 <div className="page-title">Your Orders</div>
 
-                <OrderDetails orders={orders} />
+                <OrderGrid orders={orders} />
 
             </div>
 

@@ -29,6 +29,7 @@ export function CheckoutPage( {cart} ) {
 
 
     },[]);
+ 
 
     return(
 
@@ -37,7 +38,7 @@ export function CheckoutPage( {cart} ) {
 
             <link rel="icon" href="cart-favicon.png" type="image/png"/>
 
-            <CheckoutHeader/>
+            <CheckoutHeader cart={cart} />
 
             <div className="checkout-page">
 

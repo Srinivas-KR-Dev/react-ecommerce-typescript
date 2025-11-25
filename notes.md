@@ -357,3 +357,91 @@ setCart(prev => {
 ---
 
 If you want, I can create a visual diagram showing how each one works step-by-step.
+..........................................
+
+**Idempotency (in simple words)**
+Idempotency means: **No matter how many times you perform the same action, the end result remains the same.**
+
+---
+
+## 💡 **Everyday Example**
+
+Pressing a **lift (elevator) button**:
+
+* Press once → lift comes.
+* Press 10 times → still the same result.
+  The action doesn’t change the final outcome.
+
+---
+
+## **Technical Definition**
+
+An operation is **idempotent** if **repeating it multiple times has the same effect as doing it once**.
+
+---
+
+## 📌 **Examples in Programming & APIs**
+
+### 1️⃣ **HTTP Methods**
+
+* **GET** → Idempotent
+  Fetching data repeatedly doesn’t change anything.
+* **PUT** → Idempotent
+  Updating a resource with the same data many times keeps the result the same.
+* **DELETE** → Idempotent
+  Deleting a resource multiple times results in the same final state (resource doesn’t exist).
+* **POST** → *Not idempotent*
+  Posting multiple times usually creates new resources each time.
+
+---
+
+## 📌 **Function Example**
+
+```js
+function setTo5(x) {
+  return 5;
+}
+```
+
+Calling `setTo5()` once or 100 times → same result.
+
+But:
+
+```js
+function increase(x) {
+  return x + 1;
+}
+```
+
+Calling multiple times changes the output → **not idempotent**.
+
+---
+
+## 📌 **Database Example**
+
+```sql
+UPDATE users SET active = 0 WHERE id = 10;
+```
+
+Running this once or 20 times → user remains active = 0
+So it's **idempotent**.
+
+But:
+
+```sql
+UPDATE users SET login_count = login_count + 1 WHERE id = 10;
+```
+
+Every run increments the count → **not idempotent**.
+
+---
+
+## 📌 Why idempotency matters?
+
+* Prevent duplicated transactions
+* Ensure reliability in APIs
+* Handle retries safely (e.g., payment, booking, server crashes)
+
+---
+
+If you want, I can also explain **idempotency keys** used in payment APIs like Stripe or Razorpay.
