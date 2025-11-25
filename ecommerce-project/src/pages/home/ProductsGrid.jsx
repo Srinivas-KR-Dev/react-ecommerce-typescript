@@ -1,48 +1,10 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import Header from '../components/Header';
-import { formatMoney } from '../utils/money';
-import CheckmarkIcon from '../assets/images/icons/checkmark.png';
-import './HomePage.css';
+import { formatMoney } from '../../utils/money';
+import CheckmarkIcon from '../../assets/images/icons/checkmark.png';
 
+function ProductsGrid( {products} ) {
 
-
-
-export function HomePage( {cart} ) {
-
-    const [products, setProducts] = useState([]);
-    
-
-    useEffect(()=>{
-
-        axios.get('/api/products')
-            .then((response)=>{
-            setProducts(response.data);
-        });
-
-
-    },[]);
-
-
-    /* fetch('http://localhost:3000/api/products')
-        .then((response)=>{
-            return response.json();
-        }).then((data)=>{
-            console.log(data);
-    }) */
-       
-
-    return (
-
-        <>
-            <title>Ecommerce Project</title>
-
-            <link rel="icon" href="home-favicon.png" type="image/png"/>
-
-            <Header cart={cart} />
-
-            <div className="home-page">
-                <div className="products-grid">
+    return(
+        <div className="products-grid">
 
                     {products.map((product)=>{
 
@@ -101,10 +63,9 @@ export function HomePage( {cart} ) {
                         );
                     })}
                 </div>
-            </div>
-
-        </>
-
 
     );
 }
+
+
+export default ProductsGrid;
