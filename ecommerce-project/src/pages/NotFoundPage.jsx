@@ -1,7 +1,7 @@
 import Header from '../components/Header';
 import './NotFoundPage.css';
 
-function NotFoundPage(){
+function NotFoundPage({ cart }){
 
     return (
 
@@ -10,7 +10,7 @@ function NotFoundPage(){
 
             <link rel="icon" href="home-favicon.png" type="image/png" />
 
-            <Header />
+            <Header cart={cart} />
 
             <section className="not-found-message">
                 <h1>🚫404</h1>
