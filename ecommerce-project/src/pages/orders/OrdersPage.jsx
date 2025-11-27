@@ -29,12 +29,11 @@ export function OrdersPage ( {cart} ) {
 
             setOrders(response.data);
 
-
         }
 
         fetchOrdersData();
 
-    });
+    }, []);
 
 
     return (

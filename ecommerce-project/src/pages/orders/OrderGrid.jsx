@@ -11,7 +11,7 @@ function OrderGrid( { orders } ) {
 
         <div className="orders-grid">
 
-            {orders.map((order)=>{
+            {orders.map((order) => {
 
                     return(
                         <div key={order.id} className="order-container">
