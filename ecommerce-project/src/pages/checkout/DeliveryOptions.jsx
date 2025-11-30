@@ -29,10 +29,6 @@ function DeliveryOptions( {deliveryOptions, cartItem, loadCart } ) {
 
                 }
 
-
-              /*   console.log(cartItem)
-                    console.log(deliveryOptions) */
-
                 return(
                     <div key={deliveryOption.id} className="delivery-option" onClick={updateDeliveryOption}>
                         <input type="radio" checked={deliveryOption.id === cartItem.deliveryOptionId}

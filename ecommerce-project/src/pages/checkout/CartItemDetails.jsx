@@ -10,8 +10,6 @@ function CartItemDetails({ cartItem, loadCart }) {
     }
 
 
-
-
     return(
 
         <>
