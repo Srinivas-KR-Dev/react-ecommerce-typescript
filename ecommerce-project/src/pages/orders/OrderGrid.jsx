@@ -5,7 +5,7 @@ import OrderDetails from "./OrderDetails";
 
 
 
-function OrderGrid( { orders } ) {
+function OrderGrid( { orders, loadCart} ) {
 
     return (
 
@@ -18,7 +18,7 @@ function OrderGrid( { orders } ) {
 
                             <OrderHeader order={order} />
 
-                            <OrderDetails order={order} / >
+                            <OrderDetails order={order} loadCart={loadCart} / >
 
                         </div>
 

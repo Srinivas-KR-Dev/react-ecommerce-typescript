@@ -8,7 +8,7 @@ import './OrdersPage.css';
 
 
 
-export function OrdersPage ( {cart} ) {
+export function OrdersPage ( {cart, loadCart} ) {
 
     const [orders, setOrders] = useState([]);
 
@@ -49,7 +49,7 @@ export function OrdersPage ( {cart} ) {
 
                 <div className="page-title">Your Orders</div>
 
-                <OrderGrid orders={orders} />
+                <OrderGrid orders={orders} loadCart={loadCart} />
 
             </div>
 
