@@ -30,8 +30,18 @@ function CartItemDetails({ cartItem, loadCart }) {
 
     }
 
-    const updateQuantityInput = (event)=>{
+    const updateQuantityInput = (event)=> {
         setQuantity(event.target.value);
+    }
+
+    const handleKeyDown = (event)=> {
+
+        if(event.key === 'Enter') {
+                updateQuantity();
+        } else if( event.key === 'Escape') {
+            setQuantity(cartItem.quantity);
+            setIsUpdatingQuantity(false);
+        }
     }
 
 
@@ -63,6 +73,7 @@ function CartItemDetails({ cartItem, loadCart }) {
                                 max={10} 
                                 value={quantity}
                                 onChange={updateQuantityInput}
+                                onKeyDown={handleKeyDown}
                             />  
                         : 
                             <span 
