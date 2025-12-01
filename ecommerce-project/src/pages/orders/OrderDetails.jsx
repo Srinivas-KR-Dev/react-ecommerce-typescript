@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Link } from "react-router";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import dayjs from "dayjs";
 
 
@@ -10,6 +10,8 @@ import dayjs from "dayjs";
 
 
 function OrderDetails( {order, loadCart} ) {
+
+    const [displayAddedMessage, setDisplayAddedMessage] = useState(false);
 
     return(
 
@@ -25,6 +27,14 @@ function OrderDetails( {order, loadCart} ) {
 
 
                         await loadCart();
+
+                        setDisplayAddedMessage(true);
+
+                        setTimeout(()=>{
+
+                             setDisplayAddedMessage(false);
+
+                        },2000);
                     }
 
                 return (
@@ -45,11 +55,12 @@ function OrderDetails( {order, loadCart} ) {
                         <div className="product-quantity">
                             Quantity: {orderProduct.quantity}
                         </div>
-                        <button className="buy-again-button button-primary">
-                            <img className="buy-again-icon" src="images/icons/buy-again.png" />
-                            <span className="buy-again-message"
-                                onClick={addToCart}      
-                            >Add to Cart</span>
+                        <button className="buy-again-button button-primary" 
+                            onClick={addToCart}
+                        >
+                            {<img className="buy-again-icon" src={`images/icons/${displayAddedMessage ? 'checkmark-white.png' : 'buy-again.png'}`} />}
+                            <span className="buy-again-message"       
+                            >{displayAddedMessage ? 'Added' : 'Add to Cart'}</span>
                         </button>
                         </div>
 

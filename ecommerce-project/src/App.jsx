@@ -9,6 +9,7 @@ import NotFoundPage from './pages/NotFoundPage';
 import './App.css';
 
 
+/* window.axios = axios; */
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
     loadCart();
 
   }, [])
+
  
 
   return (
