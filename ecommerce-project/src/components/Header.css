@@ -88,7 +88,19 @@
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   flex-shrink: 0;
+  
 }
+
+.header .search-button:hover {
+  background-color: rgba(186, 255, 189, 0.927);
+  
+}
+
+.header .search-button:active {
+  background-color: rgb(240, 246, 240);
+  
+}
+
 
 .header .search-icon {
   height: 20px;
