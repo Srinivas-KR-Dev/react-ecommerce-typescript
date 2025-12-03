@@ -30,6 +30,10 @@ function Header({ cart }) {
 
     const searchProducts = () => {
         navigate(`/?search=${search}`);
+        /* setSearchParams(
+            {search: search} )*/
+        
+
     } 
 
 
