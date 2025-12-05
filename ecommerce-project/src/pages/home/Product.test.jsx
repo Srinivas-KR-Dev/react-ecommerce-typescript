@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { render, screen  } from '@testing-library/react';
 import  userEvent from '@testing-library/user-event';
 import  Product  from './Product';
@@ -11,9 +11,13 @@ vi.mock('axios');
 
 describe('Product component', () => {
 
-    it('displays the product details correctly', ()=>{
+    let product;
 
-        const product = {
+    let loadCart;
+
+    beforeEach(()=>{
+
+        product = {
             id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
             image: "images/products/athletic-cotton-socks-6-pairs.jpg",
             name: "Black and Gray Athletic Cotton Socks - 6 Pairs",
@@ -25,7 +29,12 @@ describe('Product component', () => {
             keywords: ["socks", "sports", "apparel"]
         }
 
-        const loadCart = vi.fn();
+        loadCart = vi.fn();
+
+    })     
+
+    it('displays the product details correctly', ()=>{
+
 
         render(<Product product={product} loadCart={loadCart} />);
 
@@ -61,21 +70,6 @@ describe('Product component', () => {
 
     it('adds a product to cart', async () => {
 
-        const product = {
-            id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
-            image: "images/products/athletic-cotton-socks-6-pairs.jpg",
-            name: "Black and Gray Athletic Cotton Socks - 6 Pairs",
-            rating: {
-            stars: 4.5,
-            count: 87
-            },
-            priceCents: 1090,
-            keywords: ["socks", "sports", "apparel"]
-        }
-
-        
-
-        const loadCart = vi.fn();
 
         render(<Product product={product} loadCart={loadCart} />);
 
@@ -86,13 +80,36 @@ describe('Product component', () => {
         await user.click(addToCartButton);
 
         expect(axios.post).toBeCalledWith('/api/cart-items', {
-            productId: product.id,
+            productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
             quantity: 1
         });
 
         expect(loadCart).toHaveBeenCalled();
 
     });
+
+    it('displays added message after clicked the button', async ()=>{
+
+
+        render(<Product product={product} loadCart={loadCart} />);
+
+        const user = userEvent.setup();
+
+        const addToCartButton = screen.getByTestId('add-to-cart-button');
+
+        const addedMessage = screen.getByText('Added');
+
+        expect(addedMessage).toHaveStyle({
+                opacity: 0
+            });
+
+        await user.click(addToCartButton);
+
+        expect(addedMessage).toHaveStyle({
+                opacity: 1
+            });
+
+    })
 
 });
 
