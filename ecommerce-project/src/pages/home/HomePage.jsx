@@ -54,7 +54,9 @@ export function HomePage( {cart, loadCart} ) {
 
             <Header cart={cart} />
 
-            <div className="home-page">
+            <div className="home-page"
+                data-testid="home-page"
+            >
 
                 <ProductsGrid products={products} loadCart={loadCart} />
 
@@ -65,3 +67,4 @@ export function HomePage( {cart, loadCart} ) {
 
     );
 }
+
