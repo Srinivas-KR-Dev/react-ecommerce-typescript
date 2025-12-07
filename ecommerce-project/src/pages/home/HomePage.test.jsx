@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { render, screen, within  } from '@testing-library/react';
-import { MemoryRouter } from 'react-router';
+import { MemoryRouter, UNSAFE_createClientRoutesWithHMRRevalidationOptOut } from 'react-router';
+import  userEvent from '@testing-library/user-event';
 import  { HomePage }  from './HomePage';
 
 
@@ -13,8 +14,10 @@ describe('HomePage conponent', () => {
 
     let loadCart;
 
+    let user;
+
     beforeEach(() => {
-        loadCart = vi.fn;  
+        loadCart = vi.fn();  
 
         axios.get.mockImplementation( async (urlPath) => {
 
@@ -49,6 +52,8 @@ describe('HomePage conponent', () => {
             }
 
         });
+
+        user = userEvent.setup();
     })
 
 
@@ -58,7 +63,7 @@ describe('HomePage conponent', () => {
 
             <MemoryRouter>
         
-                <HomePage cart={[]} loadcart={loadCart} />
+                <HomePage cart={[]} loadCart={loadCart} />
 
             </MemoryRouter>
 
@@ -83,5 +88,59 @@ describe('HomePage conponent', () => {
         ).toBeInTheDocument();
 
     
+    });
+
+
+    it('adds a product to the cart', async () => {
+
+        render(
+
+            <MemoryRouter>
+        
+                <HomePage cart={[]} loadCart={loadCart} />
+
+            </MemoryRouter>
+
+        );
+
+        const productContainers = await screen.findAllByTestId('product-container');
+
+        const quantitySelector1 = within(productContainers[0])
+            .getByTestId('product-quantity-selector');
+        await user.selectOptions(quantitySelector1, '2')
+
+        const addtoCartButton1 = within(productContainers[0])
+            .getByTestId('add-to-cart-button');
+        await user.click(addtoCartButton1);
+
+        const quantitySelector2 = within(productContainers[1])
+            .getByTestId('product-quantity-selector');
+        await user.selectOptions(quantitySelector2, '3');
+
+        const addtoCartButton2 = within(productContainers[1])
+            .getByTestId('add-to-cart-button');
+        await user.click(addtoCartButton2);
+
+        expect(axios.post).toHaveBeenNthCalledWith(1, '/api/cart-items', {
+            
+                        productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
+                        quantity: 2
+
+                    });
+        
+
+        expect(axios.post).toHaveBeenNthCalledWith(2,'/api/cart-items', {
+            
+                        productId: '15b6fc6f-327a-4ec4-896f-486349e85a3d',
+                        quantity: 3
+                    });
+        
+        
+
+        expect(loadCart).toHaveBeenCalledTimes(2);
+
+        
+      
+
     });
 });
