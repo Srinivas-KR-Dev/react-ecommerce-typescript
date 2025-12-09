@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { render, screen, within  } from '@testing-library/react';
-import { MemoryRouter, UNSAFE_createClientRoutesWithHMRRevalidationOptOut } from 'react-router';
+import { MemoryRouter } from 'react-router';
 import  userEvent from '@testing-library/user-event';
 import  { HomePage }  from './HomePage';
 
