@@ -51,14 +51,11 @@ function App () {
             
     }, [chatMessages]);
 
-    
+    const title = `${chatMessages.length} Messages` 
 
-   
-    
-   
     return (
         <>
-            <title>Chatbot - Project</title>
+            <title>{ chatMessages.length === 0 ? 'Chatbot Project' : title }</title>
 
             <link rel="icon" href={RobotProfileImage} type="image/png"/>
 
