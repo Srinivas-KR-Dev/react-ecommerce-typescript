@@ -3,8 +3,13 @@ import UserProfileImage from '../assets/profile-1.jpg';
 import './ChatMessage.css';
 import dayjs from 'dayjs';
 
+type ChatMessageProps = {
+    message : string,
+    sender: string,
+    time: number
+}
 
-function ChatMessage({message, sender, time}) {
+function ChatMessage({message, sender, time} : ChatMessageProps) {
 
     
     return (
