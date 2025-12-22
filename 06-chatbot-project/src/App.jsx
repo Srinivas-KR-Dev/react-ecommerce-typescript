@@ -4,14 +4,15 @@ import  dayjs  from 'dayjs';
 import ChatInput from './components/ChatInput';
 import ChatMessages from './components/ChatMessages'
 import './App.css';
+import RobotProfileImage from './assets/robot.png';
 
 
 
 
 function App () {
+    
     const [chatMessages, setChatMessages] = useState(JSON.parse(localStorage.getItem('saveMessages')) || [])
 
- 
     
     useEffect(()=>{
 
@@ -48,31 +49,40 @@ function App () {
         localStorage.setItem('saveMessages', JSON.stringify(chatMessages))
 
             
-    }, [chatMessages])
+    }, [chatMessages]);
+
+    
 
    
     
    
     return (
-        <div className="app-container">
+        <>
+            <title>Chatbot - Project</title>
 
-            {chatMessages.length === 0 && 
-            <p className="welcome-message">Welcome to the chatbot project! Send a message using the textbox below.</p>
-            }
+            <link rel="icon" href={RobotProfileImage} type="image/png"/>
 
-            <ChatMessages 
-                chatMessages= {chatMessages} 
-            />
+            <div className="app-container">
 
-            <ChatInput 
-                chatMessages= {chatMessages} 
-                setChatMessages={setChatMessages} 
-            />
-            
-            {/* <p className="position-switcher-container">
-                <a className="position-switcher" href="#" onClick={console.log('clicked')}>Move textbox to top</a>
-            </p> */}
-        </div>       
+                {chatMessages.length === 0 && 
+                <p className="welcome-message">Welcome to the chatbot project! Send a message using the textbox below.</p>
+                }
+
+                <ChatMessages 
+                    chatMessages= {chatMessages} 
+                />
+
+                <ChatInput 
+                    chatMessages= {chatMessages} 
+                    setChatMessages={setChatMessages} 
+                />
+                
+                {/* <p className="position-switcher-container">
+                    <a className="position-switcher" href="#" onClick={console.log('clicked')}>Move textbox to top</a>
+                </p> */}
+            </div> 
+
+        </>     
     );
 }
 
