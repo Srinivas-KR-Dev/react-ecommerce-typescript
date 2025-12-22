@@ -2070,4 +2070,109 @@ If you want next, I can explain:
 * Why React uses *Synthetic Events*
 * Typing events for forms, buttons, keyboard events
 
+Perfect — that exact error confirms the issue 👍
+Let’s fix it **cleanly and correctly for Vite + React + TypeScript**.
+
+---
+
+## ❌ Error
+
+```
+Cannot find module './assets/robot.png' or its corresponding type declarations.
+```
+
+TypeScript doesn’t know how to type `.png` files.
+
+---
+
+## ✅ FIX (Best & Recommended)
+
+### 1️⃣ Create **`vite-env.d.ts`** (must be exact name)
+
+📍 **Project root** (same level as `package.json`, `tsconfig.json`)
+
+```ts
+/// <reference types="vite/client" />
+```
+
+✔ This single line enables image imports
+✔ Official Vite solution
+✔ Covers png, jpg, svg, webp, etc.
+
+---
+
+### 2️⃣ Restart everything (important!)
+
+Do **one** of these:
+
+#### Option A – Restart dev server
+
+```bash
+npm run dev
+```
+
+#### Option B – Restart TypeScript server in VS Code
+
+* `Ctrl + Shift + P`
+* Type **TypeScript: Restart TS server**
+* Press Enter
+
+---
+
+### 3️⃣ Your import will now work
+
+```ts
+import RobotProfileImage from './assets/robot.png';
+```
+
+```tsx
+<img src={RobotProfileImage} alt="Robot" />
+```
+
+---
+
+## 🔍 If it STILL errors (edge case)
+
+Then add this **manual declaration** (fallback):
+
+### Create `src/assets.d.ts`
+
+```ts
+declare module '*.png' {
+  const src: string;
+  export default src;
+}
+```
+
+(Do **not** remove `vite-env.d.ts`)
+
+---
+
+## ✅ Final checklist
+
+✔ `vite-env.d.ts` exists
+✔ File path is correct
+✔ Dev server restarted
+✔ Image is inside `src/assets/`
+
+---
+
+## ⚠️ Common mistakes to avoid
+
+| Mistake                                         | Result           |
+| ----------------------------------------------- | ---------------- |
+| File name mismatch (`Robot.png` vs `robot.png`) | ❌ Error          |
+| `vite-env.d.ts` inside `src/`                   | ❌ Not detected   |
+| Forgot restart                                  | ❌ Error persists |
+
+---
+
+If you want, paste:
+
+* your **folder structure**
+* your **tsconfig.json**
+
+I’ll verify everything is 100% correct.
+
+
 
