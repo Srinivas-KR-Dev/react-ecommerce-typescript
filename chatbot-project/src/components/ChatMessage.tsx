@@ -7,7 +7,7 @@ type ChatMessageProps = {
     message : string,
     sender: string,
     time: number
-}
+};
 
 function ChatMessage({message, sender, time} : ChatMessageProps) {
 

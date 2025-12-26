@@ -40,7 +40,7 @@ function App () {
         // this setup code once because we only want to add these
         // extra responses once.
 
-        },[])
+        },[]);
 
     useEffect(()=>{
 

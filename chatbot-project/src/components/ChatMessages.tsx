@@ -27,8 +27,8 @@ type ChatMessagesProps = {
         sender: string,
         id: string,
         time: number
-    }[]
-}
+    }[];
+};
 
 function ChatMessages ({chatMessages} : ChatMessagesProps) {
 
