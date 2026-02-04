@@ -107,6 +107,7 @@ function ChatInput({chatMessages, setChatMessages} : ChatInputProps) {
     function clearMessages() {
 
         setChatMessages([]);
+        
 
         // Here, you could also run:
         // localStorage.setItem('messages', JSON.stringify([]));

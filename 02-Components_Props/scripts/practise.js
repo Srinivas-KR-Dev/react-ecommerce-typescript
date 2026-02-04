@@ -1,17 +1,17 @@
 
 function LoginForm() {
 
-    return(
-        <>
+    return (
+        <form>
             <div>
-                <input type="email" placeholder="Email"/>
-            </div> 
-            <div>  
-                <input type="password" placeholder="Password"/>
+                <input type="email" placeholder="Email" />
             </div>
-            <button>Login</button>   
-            <button>Sign up</button>   
-        </> 
+            <div>
+                <input type="password" placeholder="Password" />
+            </div>
+            <button>Login</button>
+            <button>Sign up</button>
+        </form>
 
     );
 }
@@ -24,10 +24,10 @@ function App() {
     return (
         <>
             <p>Hello, welcome to my website</p>
-            <LoginForm /> 
-        </>    
+            <LoginForm />
+        </>
     );
-    
+
 }
 
 

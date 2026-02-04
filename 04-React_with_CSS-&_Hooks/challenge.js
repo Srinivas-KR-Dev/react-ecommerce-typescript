@@ -1,39 +1,39 @@
 
 function LoginForm() {
 
-    const [showPassword, setShowPassword] =  React.useState(true);
+    const [showPassword, setShowPassword] = React.useState(true);
 
 
     function toggleShowPassword() {
-          setShowPassword(!showPassword);
-            /* Another solution is:
-            if (showPassword) {
-              setShowPassword(false);
-            } else {
-              setShowPassword(true);
-            } */
-          
-        } 
-        
+        setShowPassword(!showPassword);
+        /* Another solution is:
+        if (showPassword) {
+          setShowPassword(false);
+        } else {
+          setShowPassword(true);
+        } */
+
+    }
+
 
     return (
 
         <>
 
             <div>
-                <input 
-                    placeholder="Email" 
-                    className="login-input" 
+                <input
+                    placeholder="Email"
+                    className="login-input"
                 />
             </div>
             <div>
-                <input 
-                    placeholder="Password" 
+                <input
+                    placeholder="Password"
                     type={showPassword ? 'password' : 'text'}
                     className="login-input"
                 />
-                <button 
-                    className="show-button" 
+                <button
+                    className="show-button"
                     /* onClick={()=>{setShowPassword(!showPassword)}} */
                     onClick={toggleShowPassword}
                 >{showPassword ? 'Show' : 'Hide'}</button>
@@ -54,26 +54,27 @@ function Time() {
 
     const [currentTime, setCurrentTime] = React.useState(dayjs().format('HH:mm:ss'));
 
-    React.useEffect(()=>{
+    React.useEffect(() => {
 
-        setInterval(() => 
-                    setCurrentTime(dayjs().format('HH:mm:ss')),1000
-                    );
-    },[]);
-   
-    
-    return(
-       <p>Current Time:{currentTime}</p> 
+        setInterval(() =>
+            setCurrentTime(dayjs().format('HH:mm:ss')), 1000
+        );
+    }, []);
+
+
+    return (
+        <p>Current Time:{currentTime}</p>
     );
 }
 
-function App () {
-    return(
+
+function App() {
+    return (
         <>
             <h2>Hello, welcome to my website</h2>
-            <LoginForm /> 
+            <LoginForm />
             <Time />
-        
+
         </>
     );
 }

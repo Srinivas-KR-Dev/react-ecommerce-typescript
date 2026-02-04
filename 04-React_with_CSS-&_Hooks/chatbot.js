@@ -1,144 +1,136 @@
-function ChatInput({chatMessages, setChatMessages}) {
+function ChatInput({ chatMessages, setChatMessages }) {
 
 
 
     const [inputText, setInputText] = React.useState('');
     const [isLoading, setIsLoading] = React.useState(false);
-   
+
 
     function saveInputText(event) {
         setInputText(event.target.value);
-  
-        
     }
 
-  
+    async function sendMessage() {
 
-   async function sendMessage() {
-
-        if( isLoading || inputText === '') {
+        if (isLoading || inputText === '') {
             return;
         }
 
         setIsLoading(true);
 
         const newChatMessages = [...chatMessages,
-            {
-                message:inputText,
-                sender:'user',
-                id: crypto.randomUUID()
-            }
+        {
+            message: inputText,
+            sender: 'user',
+            id: crypto.randomUUID()
+        }
 
-          
+
         ];
-        
+
         /* setChatMessages(newChatMessages); */
 
         setInputText('');
 
-      
+
         setChatMessages([
             ...newChatMessages,
-          
-            {   
 
-                message: <img  src="images/loading-spinner.gif"
-                className="loading-image"
-                alt="loading" 
-                width="45" 
-                height="45"/>,
-                sender:'robot',
+            {
+
+                message: <img src="images/loading-spinner.gif"
+                    className="loading-image"
+                    alt="loading"
+                    width="45"
+                    height="45" />,
+                sender: 'robot',
                 id: crypto.randomUUID()
             }
 
         ]);
-
-       
-
 
         const response = await Chatbot.getResponseAsync(inputText);
 
-       
         setChatMessages([
             ...newChatMessages,
-            {   
+            {
 
-                message:response,
-                sender:'robot',
+                message: response,
+                sender: 'robot',
                 id: crypto.randomUUID()
             }
 
         ]);
 
-       /* setInputText(''); */
+        /* setInputText(''); */
 
-       setIsLoading(false);
-   
+        setIsLoading(false);
+
     }
 
     function handleKeyDown(event) {
 
-        if(event.key === 'Enter') {
+        if (event.key === 'Enter') {
             sendMessage();
         } else if (event.key === 'Escape') {
-             setInputText('');
-        }  
+            setInputText('');
+        }
     }
-     
+
 
     return (
         <div className="chat-input-container">
-            <input 
-                placeholder="Send a meesage to Chatbot" 
+            <input
+                placeholder="Send a meesage to Chatbot"
                 size="30"
                 onChange={saveInputText}
                 onKeyDown={handleKeyDown}
-                value= {inputText}  
+                value={inputText}
                 className="chat-input"
             />
-            <button 
+            <button
                 onClick={sendMessage}
                 className="send-button"
             >Send</button>
-            
+
         </div>
     );
 
 }
 
-function ChatMessage({message, sender}) {
+function ChatMessage({ message, sender }) {
 
-    
+
     return (
         <div className={
-            sender  === 'user'? 
-                'chat-message-user': 
+            sender === 'user' ?
+                'chat-message-user' :
                 'chat-message-robot'
         }>
-            {sender  === 'robot' && (
-                <img 
-                    src="images/robot.png" 
-                    alt="robot" 
-                    width="45" 
-                    height="45" 
+            {sender === 'robot' && (
+                <img
+                    src="images/robot.png"
+                    alt="robot"
+                    width="45"
+                    height="45"
                     className="chat-message-profile"
-                />  
+                />
             )}
             <div className="chat-message-text">
                 {message}
             </div>
-            {sender  === 'user' && (
-                <img 
-                    src="images/user.png" 
-                    alt="user" 
-                    width="45" 
-                    height="45" 
+            {sender === 'user' && (
+                <img
+                    src="images/user.png"
+                    alt="user"
+                    width="45"
+                    height="45"
                     className="chat-message-profile"
                 />
             )}
         </div>
     );
-    
+
 }
 
 // To use a function as a hook, the function name must
@@ -150,17 +142,15 @@ function useAutoScroll(dependencies) {
     // other components.
     const containerRef = React.useRef(null);
 
-    React.useEffect(()=> {
-        const containerElem =  containerRef.current;
-        if(containerElem) {
-            
+    React.useEffect(() => {
+        const containerElem = containerRef.current;
+
+        if (containerElem) {
             containerElem.scrollTop = containerElem.scrollHeight;
-            
         }
-    },dependencies);
+    }, dependencies);
 
     return containerRef;
-
 
 }
 
@@ -168,33 +158,35 @@ function useAutoScroll(dependencies) {
 
 /* const app = //{ <section>{ChatInput()}</section> }// */
 
-function ChatMessages ({chatMessages}) {
+function ChatMessages({ chatMessages }) {
 
-    
-     const chatMessageRef =  useAutoScroll([chatMessages]);
-     /* const chatMessageRef = React.useRef(null);
-     */
-      /* React.useEffect(()=> {
-        const containerElem =  chatMessageRef.current;
-        if(containerElem) {
-            
-            containerElem.scrollTop = containerElem.scrollHeight;
-            
-        }
-    },[chatMessages]); */
 
-    
-    return(
+    const chatMessageRef = useAutoScroll([chatMessages]);
+
+    console.log(chatMessageRef)
+    /* const chatMessageRef = React.useRef(null);
+    */
+    /* React.useEffect(()=> {
+      const containerElem =  chatMessageRef.current;
+      if(containerElem) {
+          
+          containerElem.scrollTop = containerElem.scrollHeight;
+          
+      }
+  },[chatMessages]); */
+
+
+    return (
 
         <div className="chat-message-container"
-                ref={chatMessageRef}>
-            
-            {chatMessages.map((chatMessages) => {
+            ref={chatMessageRef}>
+
+            {chatMessages.map((chatMessage) => {
                 return (
-                    <ChatMessage 
-                        message = {chatMessages.message} 
-                        sender = {chatMessages.sender}
-                        key = {chatMessages.id} 
+                    <ChatMessage
+                        message={chatMessage.message}
+                        sender={chatMessage.sender}
+                        key={chatMessage.id}
                     />
 
                 );
@@ -206,32 +198,32 @@ function ChatMessages ({chatMessages}) {
 
 }
 
-function App () {
+function App() {
 
     const [chatMessages, setChatMessages] = React.useState([])
 
-    
-   
+
+
     return (
         <section className="app-container">
 
-            {chatMessages.length === 0 && 
-            <p className="welcome-message">Welcome to the chatbot project! Send a message using the textbox below.</p>
+            {chatMessages.length === 0 &&
+                <p className="welcome-message">Welcome to the chatbot project! Send a message using the textbox below.</p>
             }
 
-            <ChatMessages 
-                chatMessages= {chatMessages} 
+            <ChatMessages
+                chatMessages={chatMessages}
             />
 
-            <ChatInput 
-                chatMessages= {chatMessages} 
-                setChatMessages={setChatMessages} 
+            <ChatInput
+                chatMessages={chatMessages}
+                setChatMessages={setChatMessages}
             />
-            
+
             {/* <p className="position-switcher-container">
                 <a className="position-switcher" href="#" onClick={console.log('clicked')}>Move textbox to top</a>
             </p> */}
-        </section>       
+        </section>
     );
 }
 

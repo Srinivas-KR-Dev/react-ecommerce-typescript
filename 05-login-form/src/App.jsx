@@ -4,10 +4,12 @@ import './App.css'
 
 function App() {
 
-    return(
+    <title>Login Form</title>
+
+    return (
         <>
             <h2>Hello, welcome to my website</h2>
-            <LoginForm /> 
+            <LoginForm />
         </>
     );
 }

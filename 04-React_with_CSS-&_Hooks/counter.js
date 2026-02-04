@@ -1,13 +1,13 @@
 
 
-function App () {
+function App() {
 
-    const [count, setCount] =  React.useState(0);
+    const [count, setCount] = React.useState(0);
     const buttonRef = React.useRef(null);
     const intervelRef = React.useRef(null);
 
     function setCountDown() {
-      
+
         /* setCount(count + 1); */
 
         setCount((count) => count + 1);
@@ -15,57 +15,57 @@ function App () {
 
 
     function resetCountDown() {
-      
+
         setCount(0);
         clearInterval(intervelRef.current);
-        
-        
+
+
     }
 
 
 
     function setAutoClick() {
-    
-       
-        if(intervelRef.current) return;
 
-            intervelRef.current = setInterval(() => {
-                const buttonElem = buttonRef.current;
-                
-                if (buttonElem) {
+
+        if (intervelRef.current) return;
+
+        intervelRef.current = setInterval(() => {
+            const buttonElem = buttonRef.current;
+
+            if (buttonElem) {
                 buttonElem.click();
-                }
-            }, 1000);       
+            }
+        }, 1000);
+
+    }
+
+
+    /*    function setAutoClick() {
+      
     
-    }   
-
-
-  /*    function setAutoClick() {
-    
-  
-            setInterval(() => {
-                 setCount(count => count + 1);
-            }, 1000);       
-    
-    }    */
-
-  
+              setInterval(() => {
+                   setCount(count => count + 1);
+              }, 1000);       
+      
+      }    */
 
 
 
-    return(
+
+
+    return (
 
         <section className="button-container">
 
-            <button 
-                onClick={setCountDown} 
+            <button
+                onClick={setCountDown}
                 ref={buttonRef}
                 className="counter-button"
             >
                 Clicked {count} {(count === 1) ? 'time' : 'times'}
             </button>
 
-            <button 
+            <button
                 onClick={resetCountDown
                         /* () => setCount(0) */}
                 className="counter-button"
@@ -73,7 +73,7 @@ function App () {
                 Reset
             </button>
 
-            <button  
+            <button
                 onClick={setAutoClick}
                 className="counter-button"
             >

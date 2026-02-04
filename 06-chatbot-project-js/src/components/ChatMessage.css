@@ -6,8 +6,8 @@
 
 .chat-message-robot {
     display: flex;
-    
-    
+
+
 }
 
 .chat-message-text {
@@ -18,10 +18,10 @@
     margin-bottom: 1rem;
     justify-content: end;
     max-width: 300px;
-    
+
 }
 
-.chat-message-time{
+.chat-message-time {
     font-size: 0.7rem;
     color: rgb(125, 125, 125);
     margin-top: 0.1em;
