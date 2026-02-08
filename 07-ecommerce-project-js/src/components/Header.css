@@ -88,17 +88,17 @@
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   flex-shrink: 0;
-  
+
 }
 
 .header .search-button:hover {
   background-color: rgba(186, 255, 189, 0.927);
-  
+
 }
 
 .header .search-button:active {
   background-color: rgb(240, 246, 240);
-  
+
 }
 
 
@@ -125,9 +125,7 @@
 }
 
 .header .orders-link.active {
-  text-decoration:underline;
-
-  
+  text-decoration: underline;
 }
 
 .header .orders-text {
@@ -165,4 +163,3 @@
   width: 26px;
   text-align: center;
 }
-
