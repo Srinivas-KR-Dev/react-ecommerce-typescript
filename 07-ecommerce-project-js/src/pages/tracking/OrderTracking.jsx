@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import { Link } from "react-router";
 
 
-function OrderTracking( {order, productId} ) {
+function OrderTracking({ order, productId }) {
 
 
     const orderProduct = order.products.find((orderProduct) => {
@@ -16,7 +16,7 @@ function OrderTracking( {order, productId} ) {
 
     let deliveryPercent = (timePassedMs / totalDeliveryTimeMs) * 100;
 
-    if(deliveryPercent > 100) {
+    if (deliveryPercent > 100) {
 
         deliveryPercent = 100;
 
@@ -25,47 +25,47 @@ function OrderTracking( {order, productId} ) {
     /* deliveryPercent = Math.min(deliveryPercent, 100) */
 
 
-     const isPreparing = deliveryPercent < 33;
-     const isShipped = deliveryPercent >= 33 && deliveryPercent < 100
-     const isDelivered = deliveryPercent === 100;
+    const isPreparing = deliveryPercent < 33;
+    const isShipped = deliveryPercent >= 33 && deliveryPercent < 100
+    const isDelivered = deliveryPercent === 100;
 
 
-    return(
+    return (
         <div className="order-tracking">
             <Link className="back-to-orders-link link-primary" to="/orders">
-            View all orders
+                View all orders
             </Link>
 
             <div className="delivery-date">
-            {(deliveryPercent >= 100) ? 'Delivered on' : 'Arriving on' } {dayjs(orderProduct.estimatedDeliveryTimeMs).format('dddd, MMMM D')}
+                {(isDelivered) ? 'Delivered on' : 'Arriving on'} {dayjs(orderProduct.estimatedDeliveryTimeMs).format('dddd, MMMM D')}
             </div>
 
             <div className="product-info">
-            {orderProduct.name}
+                {orderProduct.name}
             </div>
 
             <div className="product-info">
-            Quantity: {orderProduct.quantity}
+                Quantity: {orderProduct.quantity}
             </div>
 
             <img className="product-image" src={orderProduct.product.image} />
 
             <div className="progress-labels-container">
-            <div className={`progress-label ${isPreparing && 'current-status'}`}>
-                Preparing
-            </div>
-            <div className={`progress-label ${isShipped && 'current-status'}`}>
-                Shipped
-            </div>
-            <div className={`progress-label ${isDelivered && 'current-status'}`}>
-                Delivered
-            </div>
+                <div className={`progress-label ${isPreparing && 'current-status'}`}>
+                    Preparing
+                </div>
+                <div className={`progress-label ${isShipped && 'current-status'}`}>
+                    Shipped
+                </div>
+                <div className={`progress-label ${isDelivered && 'current-status'}`}>
+                    Delivered
+                </div>
             </div>
 
             <div className="progress-bar-container">
-            <div className="progress-bar" style={{
-                width:`${deliveryPercent}%`
-            }}></div>
+                <div className="progress-bar" style={{
+                    width: `${deliveryPercent}%`
+                }}></div>
             </div>
         </div>
     );
