@@ -1,10 +1,9 @@
 import axios from 'axios';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { render, screen, within} from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { MemoryRouter, useLocation } from 'react-router';
-import  userEvent from '@testing-library/user-event';
+import userEvent from '@testing-library/user-event';
 import PaymentSummary from './PaymentSummary';
-
 
 vi.mock('axios');
 
@@ -41,18 +40,18 @@ describe('PaymentSummary component', () => {
 
             <MemoryRouter>
 
-                <PaymentSummary paymentSummary = {paymentSummary} loadCart={loadCart} />
-            
+                <PaymentSummary paymentSummary={paymentSummary} loadCart={loadCart} />
+
             </MemoryRouter>
 
         );
 
         expect(
-             screen.getAllByText('$105.06').length
+            screen.getAllByText('$105.06').length
         ).toBe(2);
 
         expect(
-             screen.getAllByText('$105.06').length
+            screen.getAllByText('$105.06').length
         ).toBeGreaterThan(0);
 
         expect(
@@ -66,21 +65,21 @@ describe('PaymentSummary component', () => {
         ).toBeInTheDocument();
 
 
-         expect(
-             screen.getByText('$0.00')
+        expect(
+            screen.getByText('$0.00')
         ).toBeInTheDocument();
 
         expect(
-             screen.getByText('$10.51')
+            screen.getByText('$10.51')
         ).toBeInTheDocument();
 
         expect(
-             screen.getByText('$115.57')
+            screen.getByText('$115.57')
         ).toBeInTheDocument();
-        
 
-        expect(screen.getByTestId('payment-summary-product-cost'))
-            .toHaveTextContent('tems (8):');
+        expect(
+            screen.getByText('Items (8):')
+        ).toBeInTheDocument();
 
         expect(screen.getByTestId('payment-summary-shipping-cost'))
             .toHaveTextContent('Shipping & handling:');
@@ -103,8 +102,6 @@ describe('PaymentSummary component', () => {
             const location = useLocation();
 
             return (
-
-                
                 <div data-testid="url-path">
                     {location.pathname}
                 </div>
@@ -115,14 +112,14 @@ describe('PaymentSummary component', () => {
 
             <MemoryRouter>
 
-                <PaymentSummary paymentSummary = {paymentSummary} loadCart={loadCart} />
+                <PaymentSummary paymentSummary={paymentSummary} loadCart={loadCart} />
                 <Location />
 
             </MemoryRouter>
 
         );
 
-        const placeOrderButton  = screen.getByTestId('place-order-button');
+        const placeOrderButton = screen.getByTestId('place-order-button');
 
         await user.click(placeOrderButton);
 
@@ -131,7 +128,5 @@ describe('PaymentSummary component', () => {
         expect(loadCart).toHaveBeenCalled();
 
         expect(screen.getByTestId('url-path')).toHaveTextContent('/orders');
-
-
-    })
+    });
 });

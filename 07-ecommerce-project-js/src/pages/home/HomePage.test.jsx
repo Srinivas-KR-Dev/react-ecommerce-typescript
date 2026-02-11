@@ -60,13 +60,9 @@ describe('HomePage conponent', () => {
     it('displays the products correct', async () => {
 
         render(
-
             <MemoryRouter>
-
                 <HomePage cart={[]} loadCart={loadCart} />
-
             </MemoryRouter>
-
         );
 
         const productContainers = await screen.findAllByTestId('product-container');

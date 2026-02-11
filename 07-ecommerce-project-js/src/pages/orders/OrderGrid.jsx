@@ -5,7 +5,7 @@ import OrderDetails from "./OrderDetails";
 
 
 
-function OrderGrid( { orders, loadCart} ) {
+function OrderGrid({ orders, loadCart }) {
 
     return (
 
@@ -13,18 +13,19 @@ function OrderGrid( { orders, loadCart} ) {
 
             {orders.map((order) => {
 
-                    return(
-                        <div key={order.id} className="order-container">
+                return (
+                    <div key={order.id} className="order-container">
 
-                            <OrderHeader order={order} />
+                        <OrderHeader order={order} />
 
-                            <OrderDetails order={order} loadCart={loadCart} / >
+                        <OrderDetails order={order} loadCart={loadCart} />
 
-                        </div>
+                    </div>
 
-                );})}
+                );
+            })}
 
-            </div>
+        </div>
     );
 }
 
