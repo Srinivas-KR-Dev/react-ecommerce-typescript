@@ -5,7 +5,18 @@ import Header from '../../components/Header';
 import ProductsGrid from './ProductsGrid';
 import './HomePage.css';
 
-export function HomePage( {cart, loadCart} ) {
+
+type HomePageProps = {
+    cart: {
+        productId: string;
+        quantity: number;
+        deliveryOptionId: string;
+    }[];
+    loadCart: () => Promise<void>;
+};
+
+
+export function HomePage({ cart, loadCart }: HomePageProps) {
 
     const [products, setProducts] = useState([]);
 
@@ -15,23 +26,23 @@ export function HomePage( {cart, loadCart} ) {
 
 
 
-    useEffect(()=>{
+    useEffect(() => {
 
 
         const fetchHomeData = async () => {
 
             const urlPath = search ? `/api/products?search=${search}` :
-            '/api/products';
+                '/api/products';
 
 
-            const response =  await axios.get(urlPath);
+            const response = await axios.get(urlPath);
 
             setProducts(response.data);
 
 
         }
 
-     
+
         fetchHomeData();
 
     }, [search]);
@@ -43,14 +54,14 @@ export function HomePage( {cart, loadCart} ) {
         }).then((data)=>{
             console.log(data);
     }) */
-       
+
 
     return (
 
         <>
             <title>Ecommerce Project</title>
 
-            <link rel="icon" href="home-favicon.png" type="image/png"/>
+            <link rel="icon" href="home-favicon.png" type="image/png" />
 
             <Header cart={cart} />
 

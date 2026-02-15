@@ -8,11 +8,11 @@ import './Header.css';
 
 type HeaderProps = {
     cart: {
-        productId: string,
-        quantity: number,
-        deliveryOptionId: string
+        productId: string;
+        quantity: number;
+        deliveryOptionId: string;
     }[];
-}
+};
 
 function Header({ cart }: HeaderProps) {
 
