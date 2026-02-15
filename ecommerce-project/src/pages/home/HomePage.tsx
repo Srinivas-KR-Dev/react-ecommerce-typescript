@@ -3,58 +3,33 @@ import { useSearchParams } from 'react-router';
 import axios from 'axios';
 import Header from '../../components/Header';
 import ProductsGrid from './ProductsGrid';
+import type { Cart } from '../../types/cart';
 import './HomePage.css';
 
-
 type HomePageProps = {
-    cart: {
-        productId: string;
-        quantity: number;
-        deliveryOptionId: string;
-    }[];
+    cart: Cart;
     loadCart: () => Promise<void>;
 };
-
 
 export function HomePage({ cart, loadCart }: HomePageProps) {
 
     const [products, setProducts] = useState([]);
-
     const [searchParams] = useSearchParams();
-
     const search = searchParams.get('search');
-
-
 
     useEffect(() => {
 
-
         const fetchHomeData = async () => {
-
             const urlPath = search ? `/api/products?search=${search}` :
                 '/api/products';
-
 
             const response = await axios.get(urlPath);
 
             setProducts(response.data);
-
-
         }
-
-
         fetchHomeData();
 
     }, [search]);
-
-
-    /* fetch('http://localhost:3000/api/products')
-        .then((response)=>{
-            return response.json();
-        }).then((data)=>{
-            console.log(data);
-    }) */
-
 
     return (
 
@@ -68,14 +43,10 @@ export function HomePage({ cart, loadCart }: HomePageProps) {
             <div className="home-page"
                 data-testid="home-page"
             >
-
                 <ProductsGrid products={products} loadCart={loadCart} />
 
             </div>
-
         </>
-
-
     );
 }
 
