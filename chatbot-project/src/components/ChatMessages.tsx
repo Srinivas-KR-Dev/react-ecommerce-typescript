@@ -4,17 +4,17 @@ import './ChatMessages.css';
 
 
 function useAutoScroll(dependency: unknown) {
- 
+
     const containerRef = useRef<HTMLDivElement | null>(null);
 
-    useEffect(()=> {
-        const containerElem =  containerRef.current;
-        if(containerElem) {
-            
+    useEffect(() => {
+        const containerElem = containerRef.current;
+        if (containerElem) {
+
             containerElem.scrollTop = containerElem.scrollHeight;
-            
+
         }
-    },[dependency]);
+    }, [dependency]);
 
     return containerRef;
 
@@ -22,32 +22,32 @@ function useAutoScroll(dependency: unknown) {
 }
 
 type ChatMessagesProps = {
-    chatMessages : {
-        message: string,
-        sender: string,
-        id: string,
-        time: number
+    chatMessages: {
+        message: string;
+        sender: string;
+        id: string;
+        time: number;
     }[];
 };
 
-function ChatMessages ({chatMessages} : ChatMessagesProps) {
+function ChatMessages({ chatMessages }: ChatMessagesProps) {
 
-    
-     const chatMessageRef =  useAutoScroll(chatMessages);
-     
 
-    return(
+    const chatMessageRef = useAutoScroll(chatMessages);
+
+
+    return (
 
         <div className="chat-message-container"
-                ref={chatMessageRef}>
-            
+            ref={chatMessageRef}>
+
             {chatMessages.map((chatMessages) => {
                 return (
-                    <ChatMessage 
-                        message = {chatMessages.message} 
-                        sender = {chatMessages.sender}
-                        key = {chatMessages.id} 
-                        time = {chatMessages.time}
+                    <ChatMessage
+                        message={chatMessages.message}
+                        sender={chatMessages.sender}
+                        key={chatMessages.id}
+                        time={chatMessages.time}
                     />
 
                 );

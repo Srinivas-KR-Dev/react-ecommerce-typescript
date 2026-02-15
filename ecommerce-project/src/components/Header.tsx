@@ -1,4 +1,4 @@
-import { NavLink, useNavigate, useSearchParams} from 'react-router';
+import { NavLink, useNavigate, useSearchParams } from 'react-router';
 import { useEffect, useState } from 'react';
 import CartIcon from '../assets/images/icons/cart-icon.png';
 import SearchIcon from '../assets/images/icons/search-icon.png';
@@ -14,7 +14,7 @@ type HeaderProps = {
     }[];
 }
 
-function Header( { cart } : HeaderProps ) {
+function Header({ cart }: HeaderProps) {
 
     const navigate = useNavigate();
 
@@ -22,16 +22,16 @@ function Header( { cart } : HeaderProps ) {
 
     const searchText = searchParams.get('search');
 
-   
-    const [search, setSearch] = useState( searchText || '' );
 
-    useEffect(()=>{
+    const [search, setSearch] = useState(searchText || '');
 
-        setSearch( searchText || '' );
+    useEffect(() => {
 
-    },[searchText]);
-  
-    const updateSearchInput = (event:React.ChangeEvent<HTMLInputElement>) => {
+        setSearch(searchText || '');
+
+    }, [searchText]);
+
+    const updateSearchInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(event.target.value);
     }
 
@@ -39,9 +39,9 @@ function Header( { cart } : HeaderProps ) {
         navigate(`/?search=${search}`);
         /* setSearchParams(
             {search: search} )*/
-        
 
-    } 
+
+    }
 
 
     let totalQuantity = 0;
@@ -49,51 +49,51 @@ function Header( { cart } : HeaderProps ) {
     cart.forEach((cartItem) => {
 
         totalQuantity += cartItem.quantity
-        
+
     });
 
 
-  
+
     return (
 
 
-        
+
         <div className="header">
 
-                <div className="left-section">
-                    <NavLink to="/" className="header-link">
+            <div className="left-section">
+                <NavLink to="/" className="header-link">
                     <img className="logo"
                         src={LogoWhite} />
                     <img className="mobile-logo"
                         src={MobileLogoWhite} />
-                    </NavLink>
-                </div>
+                </NavLink>
+            </div>
 
             <div className="middle-section">
-                <input 
-                    className="search-bar" 
-                    type="text" placeholder="Search" 
-                    value={search} 
-                    onChange={updateSearchInput}/>
+                <input
+                    className="search-bar"
+                    type="text" placeholder="Search"
+                    value={search}
+                    onChange={updateSearchInput} />
 
                 <button className="search-button" onClick={searchProducts}>
-                <img className="search-icon" src={SearchIcon} />
+                    <img className="search-icon" src={SearchIcon} />
                 </button>
             </div>
 
             <div className="right-section">
                 <NavLink className="orders-link header-link" to="/orders">
 
-                <span className="orders-text">Orders</span>
+                    <span className="orders-text">Orders</span>
                 </NavLink>
 
                 <NavLink className="cart-link header-link" to="/checkout">
-                <img className="cart-icon" src={CartIcon} />
-                <div className="cart-quantity">{totalQuantity}</div>
-                <div className="cart-text">Cart</div>
+                    <img className="cart-icon" src={CartIcon} />
+                    <div className="cart-quantity">{totalQuantity}</div>
+                    <div className="cart-text">Cart</div>
                 </NavLink>
             </div>
-            </div>
+        </div>
 
     );
 }
