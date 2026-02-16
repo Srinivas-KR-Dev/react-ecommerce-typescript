@@ -1,21 +1,28 @@
 import axios from "axios";
 import dayjs from "dayjs";
 import { formatMoney } from "../../utils/money";
+import type { CartItem, LoadCart } from "../../types/cart";
+import type { DeliveryOptions as DeliveryOptionsType } from "../../types/delivery-options";
+
+type DeliveryOptionsProps = {
+    deliveryOptions: DeliveryOptionsType;
+    cartItem: CartItem;
+    loadCart: LoadCart;
+}
 
 
+function DeliveryOptions({ deliveryOptions, cartItem, loadCart }: DeliveryOptionsProps) {
 
-function DeliveryOptions( {deliveryOptions, cartItem, loadCart } ) {
-
-    return(
+    return (
         <div className="delivery-options">
             <div className="delivery-options-title">
-            Choose a delivery option:
+                Choose a delivery option:
             </div>
-            {deliveryOptions.map((deliveryOption)=>{
+            {deliveryOptions.map((deliveryOption) => {
 
                 let priceString = 'FREE Shipping'
 
-                if(deliveryOption.priceCents > 0) {
+                if (deliveryOption.priceCents > 0) {
                     priceString = `${formatMoney(deliveryOption.priceCents)}-Shipping`
                 }
 
@@ -25,33 +32,33 @@ function DeliveryOptions( {deliveryOptions, cartItem, loadCart } ) {
                         deliveryOptionId: deliveryOption.id
                     });
 
-                    await loadCart();  
+                    await loadCart();
 
                 }
 
-                return(
+                return (
                     <div key={deliveryOption.id} className="delivery-option" onClick={updateDeliveryOption}>
                         <input type="radio" checked={deliveryOption.id === cartItem.deliveryOptionId}
-                            onChange={()=>{}}
+                            onChange={() => { }}
                             className="delivery-option-input"
                             name={`delivery-option-${cartItem.productId}`} />
                         <div>
                             <div className="delivery-option-date">
-                            {dayjs(deliveryOption.estimatedDeliveryTimeMs).format('dddd, MMMM D')}
+                                {dayjs(deliveryOption.estimatedDeliveryTimeMs).format('dddd, MMMM D')}
                             </div>
                             <div className="delivery-option-price">
-                            {priceString}
+                                {priceString}
                             </div>
                         </div>
                     </div>
                 );
 
             })}
-            
+
         </div>
     );
 
-    
+
 }
 
 export default DeliveryOptions;

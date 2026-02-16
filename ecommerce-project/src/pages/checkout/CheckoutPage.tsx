@@ -4,49 +4,42 @@ import CheckoutHeader from './CheckoutHeader';
 import OrderSummary from './OrderSummary';
 import PaymentSummary from './PaymentSummary';
 import './CheckoutPage.css';
+import type { Cart, LoadCart } from '../../types/cart';
 
-export function CheckoutPage( {cart, loadCart} ) {
+type CheckoutPageProps = {
+    cart: Cart;
+    loadCart: LoadCart;
+}
+
+export function CheckoutPage({ cart, loadCart }: CheckoutPageProps) {
 
     const [deliveryOptions, setDeliveryOptions] = useState([]);
-	const [paymentSummary, setPaymentSummary] = useState(null);
+    const [paymentSummary, setPaymentSummary] = useState(null);
 
-    useEffect(()=>{
+    useEffect(() => {
 
-        const fetchCheckoutData = async ()=> {
-
+        const fetchCheckoutData = async () => {
             const response = await axios.get('/api/delivery-options?expand=estimatedDeliveryTime');
-
-                setDeliveryOptions(response.data);
-
+            setDeliveryOptions(response.data);
         }
-
         fetchCheckoutData();
+    }, []);
 
+    useEffect(() => {
 
-    },[]);
-
-
-    useEffect(()=>{
-
-        const fetchPaymentSummaryData = async () =>{
-
+        const fetchPaymentSummaryData = async () => {
             const response = await axios.get('/api/payment-summary');
-
             setPaymentSummary(response.data);
-
         }
-
         fetchPaymentSummaryData();
-    
-    },[cart])
- 
 
-    return(
+    }, [cart])
+
+    return (
 
         <>
             <title>Checkout</title>
-
-            <link rel="icon" href="cart-favicon.png" type="image/png"/>
+            <link rel="icon" href="cart-favicon.png" type="image/png" />
 
             <CheckoutHeader cart={cart} />
 
@@ -57,14 +50,10 @@ export function CheckoutPage( {cart, loadCart} ) {
                 <div className="checkout-grid">
 
                     <OrderSummary deliveryOptions={deliveryOptions} cart={cart} loadCart={loadCart} />
-
                     <PaymentSummary paymentSummary={paymentSummary} loadCart={loadCart} />
 
                 </div>
-
             </div>
-
         </>
-
     );
 }
