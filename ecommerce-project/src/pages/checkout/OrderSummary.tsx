@@ -2,7 +2,7 @@ import DeliveryOptions from './DeliveryOptions';
 import CartItemDetails from './CartItemDetails';
 import DeliveryDate from './DeliveryDate';
 import type { Cart, LoadCart } from '../../types/cart';
-import type { DeliveryOptions as DeliveryOptionsType } from "../../types/delivery-options";
+import type { DeliveryOptions as DeliveryOptionsType } from "../../types/deliveryOptions";
 
 type OrderSummaryProps = {
     deliveryOptions: DeliveryOptionsType;

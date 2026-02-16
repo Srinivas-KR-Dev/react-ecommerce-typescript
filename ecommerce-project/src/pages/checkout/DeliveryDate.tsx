@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import type { CartItem } from "../../types/cart";
-import type { DeliveryOptions as DeliveryOptionsType } from "../../types/delivery-options";
+import type { DeliveryOptions as DeliveryOptionsType } from "../../types/deliveryOptions";
 
 type DeliveryDateProps = {
     cartItem: CartItem;

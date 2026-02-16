@@ -22,11 +22,11 @@ function Header({ cart }: HeaderProps) {
     const searchText = searchParams.get('search');
 
 
-    const [search, setSearch] = useState(searchText || '');
+    const [search, setSearch] = useState(searchText ?? '');
 
     useEffect(() => {
 
-        setSearch(searchText || '');
+        setSearch(searchText ?? '');
 
     }, [searchText]);
 

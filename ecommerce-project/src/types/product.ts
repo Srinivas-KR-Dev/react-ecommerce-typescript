@@ -9,3 +9,4 @@ export type Product = {
     priceCents: number;
     keywords: string[];
 }
+

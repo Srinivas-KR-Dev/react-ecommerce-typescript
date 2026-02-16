@@ -2,16 +2,10 @@ import { useNavigate } from "react-router";
 import axios from "axios";
 import { formatMoney } from "../../utils/money";
 import type { LoadCart } from "../../types/cart";
+import type { PaymentSummary as PaymentSummaryType } from "../../types/paymentSummary";
 
 type PaymentSummaryProps = {
-    paymentSummary: {
-        totalItems: number;
-        productCostCents: number;
-        shippingCostCents: number;
-        totalCostBeforeTaxCents: number;
-        taxCents: number;
-        totalCostCents: number;
-    } | null;
+    paymentSummary: PaymentSummaryType;
     loadCart: LoadCart
 }
 

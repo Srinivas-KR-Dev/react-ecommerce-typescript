@@ -2,7 +2,7 @@ import axios from "axios";
 import dayjs from "dayjs";
 import { formatMoney } from "../../utils/money";
 import type { CartItem, LoadCart } from "../../types/cart";
-import type { DeliveryOptions as DeliveryOptionsType } from "../../types/delivery-options";
+import type { DeliveryOptions as DeliveryOptionsType } from "../../types/deliveryOptions";
 
 type DeliveryOptionsProps = {
     deliveryOptions: DeliveryOptionsType;

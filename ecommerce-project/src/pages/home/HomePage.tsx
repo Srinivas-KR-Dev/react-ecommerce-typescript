@@ -5,6 +5,7 @@ import Header from '../../components/Header';
 import ProductsGrid from './ProductsGrid';
 import type { Cart, LoadCart } from '../../types/cart';
 import './HomePage.css';
+import type { Product } from '../../types/product';
 
 type HomePageProps = {
     cart: Cart;
@@ -13,7 +14,7 @@ type HomePageProps = {
 
 export function HomePage({ cart, loadCart }: HomePageProps) {
 
-    const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState<Product[]>([]);
     const [searchParams] = useSearchParams();
     const search = searchParams.get('search');
 

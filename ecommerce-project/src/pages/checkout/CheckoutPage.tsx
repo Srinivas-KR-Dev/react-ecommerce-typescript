@@ -5,6 +5,8 @@ import OrderSummary from './OrderSummary';
 import PaymentSummary from './PaymentSummary';
 import './CheckoutPage.css';
 import type { Cart, LoadCart } from '../../types/cart';
+import type { DeliveryOptions as DeliveryOptions } from '../../types/deliveryOptions';
+import type { PaymentSummary as PaymentSummaryType } from '../../types/paymentSummary';
 
 type CheckoutPageProps = {
     cart: Cart;
@@ -13,8 +15,8 @@ type CheckoutPageProps = {
 
 export function CheckoutPage({ cart, loadCart }: CheckoutPageProps) {
 
-    const [deliveryOptions, setDeliveryOptions] = useState([]);
-    const [paymentSummary, setPaymentSummary] = useState(null);
+    const [deliveryOptions, setDeliveryOptions] = useState<DeliveryOptions>([]);
+    const [paymentSummary, setPaymentSummary] = useState<PaymentSummaryType | null>(null);
 
     useEffect(() => {
 
@@ -50,7 +52,11 @@ export function CheckoutPage({ cart, loadCart }: CheckoutPageProps) {
                 <div className="checkout-grid">
 
                     <OrderSummary deliveryOptions={deliveryOptions} cart={cart} loadCart={loadCart} />
-                    <PaymentSummary paymentSummary={paymentSummary} loadCart={loadCart} />
+                    {paymentSummary && (
+                        <PaymentSummary
+                            paymentSummary={paymentSummary}
+                            loadCart={loadCart}
+                        />)}
 
                 </div>
             </div>
