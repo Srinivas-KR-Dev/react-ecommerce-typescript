@@ -1,5 +1,5 @@
 import { NavLink, useNavigate, useSearchParams } from 'react-router';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ChangeEvent } from 'react';
 import type { Cart } from '../types/cart';
 import CartIcon from '../assets/images/icons/cart-icon.png';
 import SearchIcon from '../assets/images/icons/search-icon.png';
@@ -30,7 +30,7 @@ function Header({ cart }: HeaderProps) {
 
     }, [searchText]);
 
-    const updateSearchInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const updateSearchInput = (event: ChangeEvent<HTMLInputElement>) => {
         setSearch(event.target.value);
     }
 

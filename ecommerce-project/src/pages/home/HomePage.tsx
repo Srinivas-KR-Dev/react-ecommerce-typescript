@@ -3,12 +3,12 @@ import { useSearchParams } from 'react-router';
 import axios from 'axios';
 import Header from '../../components/Header';
 import ProductsGrid from './ProductsGrid';
-import type { Cart } from '../../types/cart';
+import type { Cart, LoadCart } from '../../types/cart';
 import './HomePage.css';
 
 type HomePageProps = {
     cart: Cart;
-    loadCart: () => Promise<void>;
+    loadCart: LoadCart;
 };
 
 export function HomePage({ cart, loadCart }: HomePageProps) {
