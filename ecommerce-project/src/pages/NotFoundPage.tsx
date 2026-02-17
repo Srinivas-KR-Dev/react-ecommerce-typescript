@@ -1,7 +1,12 @@
 import Header from '../components/Header';
+import type { Cart } from '../types/cart';
 import './NotFoundPage.css';
 
-function NotFoundPage({ cart }){
+type NotFoundPageProps = {
+    cart: Cart;
+};
+
+function NotFoundPage({ cart }: NotFoundPageProps) {
 
     return (
 
@@ -19,7 +24,7 @@ function NotFoundPage({ cart }){
 
         </>
     );
-    
+
 }
 
 export default NotFoundPage;
