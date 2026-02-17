@@ -1,28 +1,33 @@
 import axios from 'axios';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { render, screen  } from '@testing-library/react';
-import  userEvent from '@testing-library/user-event';
-import  Product  from './Product';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import Product from './Product';
+import type { Product as ProductType } from '../../types/product';
+import type { LoadCart } from '../../types/cart';
+
+
+
 
 vi.mock('axios');
 
 describe('Product component', () => {
 
-    let product;
+    let product: ProductType;
 
-    let loadCart;
+    let loadCart: LoadCart;
 
-    let user;
+    let user = userEvent.setup();
 
-    beforeEach(()=>{
+    beforeEach(() => {
 
         product = {
             id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
             image: "images/products/athletic-cotton-socks-6-pairs.jpg",
             name: "Black and Gray Athletic Cotton Socks - 6 Pairs",
             rating: {
-            stars: 4.5,
-            count: 87
+                stars: 4.5,
+                count: 87
             },
             priceCents: 1090,
             keywords: ["socks", "sports", "apparel"]
@@ -32,9 +37,9 @@ describe('Product component', () => {
 
         user = userEvent.setup();
 
-    })     
+    })
 
-    it('displays the product details correctly', ()=>{
+    it('displays the product details correctly', () => {
 
 
         render(<Product product={product} loadCart={loadCart} />);
@@ -53,7 +58,7 @@ describe('Product component', () => {
 
         expect(
             screen.getByTestId('product-image')
-        ).toHaveAttribute('src',"images/products/athletic-cotton-socks-6-pairs.jpg");
+        ).toHaveAttribute('src', "images/products/athletic-cotton-socks-6-pairs.jpg");
 
         expect(
             screen.getByTestId('product-rating-stars')
@@ -112,7 +117,7 @@ describe('Product component', () => {
 
     });
 
-    it('displays added message after clicked the button', async ()=>{
+    it('displays added message after clicked the button', async () => {
 
         render(<Product product={product} loadCart={loadCart} />);
 
@@ -121,14 +126,14 @@ describe('Product component', () => {
         const addedMessage = screen.getByText('Added');
 
         expect(addedMessage).toHaveStyle({
-                opacity: 0
-            });
+            opacity: 0
+        });
 
         await user.click(addToCartButton);
 
         expect(addedMessage).toHaveStyle({
-                opacity: 1
-            });
+            opacity: 1
+        });
 
     })
 
