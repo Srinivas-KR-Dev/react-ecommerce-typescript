@@ -1,17 +1,16 @@
-import axios from "axios";
 import dayjs from "dayjs";
 import { formatMoney } from "../../utils/money";
-import type { CartItem, LoadCart } from "../../types/cart";
+import type { CartItem } from "../../types/cart";
 import type { DeliveryOptions as DeliveryOptionsType } from "../../types/deliveryOptions";
+import { useUpdateCartItem } from "../../hooks/useApi";
 
 type DeliveryOptionsProps = {
     deliveryOptions: DeliveryOptionsType;
     cartItem: CartItem;
-    loadCart: LoadCart;
 }
 
-
-function DeliveryOptions({ deliveryOptions, cartItem, loadCart }: DeliveryOptionsProps) {
+function DeliveryOptions({ deliveryOptions, cartItem }: DeliveryOptionsProps) {
+    const updateCartItemMutation = useUpdateCartItem();
 
     return (
         <div className="delivery-options">
@@ -19,21 +18,21 @@ function DeliveryOptions({ deliveryOptions, cartItem, loadCart }: DeliveryOption
                 Choose a delivery option:
             </div>
             {deliveryOptions.map((deliveryOption) => {
-
-                let priceString = 'FREE Shipping'
+                let priceString = 'FREE Shipping';
 
                 if (deliveryOption.priceCents > 0) {
-                    priceString = `${formatMoney(deliveryOption.priceCents)}-Shipping`
+                    priceString = `${formatMoney(deliveryOption.priceCents)}-Shipping`;
                 }
 
                 const updateDeliveryOption = async () => {
-
-                    await axios.put(`api/cart-items/${cartItem.productId}`, {
-                        deliveryOptionId: deliveryOption.id
-                    });
-
-                    await loadCart();
-
+                    try {
+                        await updateCartItemMutation.mutateAsync({
+                            itemId: cartItem.productId,
+                            deliveryOptionId: deliveryOption.id,
+                        });
+                    } catch (error) {
+                        console.error('Failed to update delivery option:', error);
+                    }
                 }
 
                 return (

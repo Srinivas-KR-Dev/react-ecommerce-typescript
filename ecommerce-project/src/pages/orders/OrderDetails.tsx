@@ -1,18 +1,16 @@
-import axios from "axios";
 import { Link } from "react-router";
 import { Fragment, useState } from "react";
 import dayjs from "dayjs";
 import type { Order } from "../../types/orders";
-import type { LoadCart } from "../../types/cart";
+import { useAddToCart } from "../../hooks/useApi";
 
 type OrderDetailsProps = {
     order: Order;
-    loadCart: LoadCart;
 }
 
-function OrderDetails({ order, loadCart }: OrderDetailsProps) {
-
+function OrderDetails({ order }: OrderDetailsProps) {
     const [displayAddedMessage, setDisplayAddedMessage] = useState(false);
+    const addToCartMutation = useAddToCart();
 
     return (
 
@@ -21,21 +19,18 @@ function OrderDetails({ order, loadCart }: OrderDetailsProps) {
             {order.products.map((orderProduct) => {
 
                 const addToCart = async () => {
-                    await axios.post('/api/cart-items', {
-                        productId: orderProduct.product.id,
-                        quantity: 1
-                    })
-
-
-                    await loadCart();
-
-                    setDisplayAddedMessage(true);
-
-                    setTimeout(() => {
-
-                        setDisplayAddedMessage(false);
-
-                    }, 2000);
+                    try {
+                        await addToCartMutation.mutateAsync({
+                            productId: orderProduct.product.id,
+                            quantity: 1,
+                        });
+                        setDisplayAddedMessage(true);
+                        setTimeout(() => {
+                            setDisplayAddedMessage(false);
+                        }, 2000);
+                    } catch (error) {
+                        console.error('Failed to add to cart:', error);
+                    }
                 }
 
                 return (

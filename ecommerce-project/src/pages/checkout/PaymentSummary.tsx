@@ -1,25 +1,23 @@
 import { useNavigate } from "react-router";
-import axios from "axios";
 import { formatMoney } from "../../utils/money";
-import type { LoadCart } from "../../types/cart";
 import type { PaymentSummary as PaymentSummaryType } from "../../types/paymentSummary";
+import { useCreateOrder } from "../../hooks/useApi";
 
 type PaymentSummaryProps = {
     paymentSummary: PaymentSummaryType;
-    loadCart: LoadCart
 }
 
-function PaymentSummary({ paymentSummary, loadCart }: PaymentSummaryProps) {
-
+function PaymentSummary({ paymentSummary }: PaymentSummaryProps) {
     const navigate = useNavigate();
+    const createOrderMutation = useCreateOrder();
 
     const createOrder = async () => {
-        await axios.post('/api/orders');
-
-        await loadCart();
-
-        navigate('/orders');
-
+        try {
+            await createOrderMutation.mutateAsync();
+            navigate('/orders');
+        } catch (error) {
+            console.error('Failed to create order:', error);
+        }
     }
 
     return (
@@ -60,8 +58,9 @@ function PaymentSummary({ paymentSummary, loadCart }: PaymentSummaryProps) {
                     <button className="place-order-button button-primary"
                         data-testid="place-order-button"
                         onClick={createOrder}
+                        disabled={createOrderMutation.isPending}
                     >
-                        Place your order
+                        {createOrderMutation.isPending ? 'Placing order...' : 'Place your order'}
                     </button>
 
                 </>

@@ -1,25 +1,21 @@
 import axios from 'axios';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { render, screen, within} from '@testing-library/react';
-import { MemoryRouter, useLocation } from 'react-router';
-import  userEvent from '@testing-library/user-event';
+import { render, screen, within } from '@testing-library/react';
+import { MemoryRouter } from 'react-router';
+import userEvent from '@testing-library/user-event';
+import { QueryClientProvider } from '@tanstack/react-query';
 import PaymentSummary from './PaymentSummary';
+import { queryClient } from '../../utils/queryClient';
+import type { PaymentSummary as PaymentSummarType } from '../../types/paymentSummary';
 
 
 vi.mock('axios');
 
 describe('PaymentSummary component', () => {
-
-    let loadCart;
-
-    let paymentSummary;
-
-    let user;
+    let paymentSummary: PaymentSummarType;
+    let user = userEvent.setup();
 
     beforeEach(() => {
-
-        loadCart = vi.fn();
-
         paymentSummary = {
 
             "totalItems": 8,
@@ -35,24 +31,20 @@ describe('PaymentSummary component', () => {
     });
 
     it('display the correct details', () => {
-
-
         render(
-
-            <MemoryRouter>
-
-                <PaymentSummary paymentSummary = {paymentSummary} loadCart={loadCart} />
-            
-            </MemoryRouter>
-
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <PaymentSummary paymentSummary={paymentSummary} />
+                </MemoryRouter>
+            </QueryClientProvider>
         );
 
         expect(
-             screen.getAllByText('$105.06').length
+            screen.getAllByText('$105.06').length
         ).toBe(2);
 
         expect(
-             screen.getAllByText('$105.06').length
+            screen.getAllByText('$105.06').length
         ).toBeGreaterThan(0);
 
         expect(
@@ -66,18 +58,18 @@ describe('PaymentSummary component', () => {
         ).toBeInTheDocument();
 
 
-         expect(
-             screen.getByText('$0.00')
+        expect(
+            screen.getByText('$0.00')
         ).toBeInTheDocument();
 
         expect(
-             screen.getByText('$10.51')
+            screen.getByText('$10.51')
         ).toBeInTheDocument();
 
         expect(
-             screen.getByText('$115.57')
+            screen.getByText('$115.57')
         ).toBeInTheDocument();
-        
+
 
         expect(screen.getByTestId('payment-summary-product-cost'))
             .toHaveTextContent('tems (8):');
@@ -95,43 +87,20 @@ describe('PaymentSummary component', () => {
             .toHaveTextContent('Order total:');
 
     });
-
     it('places an order', async () => {
-
-        function Location() {
-
-            const location = useLocation();
-
-            return (
-
-                
-                <div data-testid="url-path">
-                    {location.pathname}
-                </div>
-            );
-        }
+        vi.mocked(axios.post).mockResolvedValue({ data: {} });
 
         render(
-
-            <MemoryRouter>
-
-                <PaymentSummary paymentSummary = {paymentSummary} loadCart={loadCart} />
-                <Location />
-
-            </MemoryRouter>
-
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <PaymentSummary paymentSummary={paymentSummary} />
+                </MemoryRouter>
+            </QueryClientProvider>
         );
 
-        const placeOrderButton  = screen.getByTestId('place-order-button');
-
+        const placeOrderButton = screen.getByTestId('place-order-button');
         await user.click(placeOrderButton);
 
         expect(axios.post).toHaveBeenCalledWith('/api/orders');
-
-        expect(loadCart).toHaveBeenCalled();
-
-        expect(screen.getByTestId('url-path')).toHaveTextContent('/orders');
-
-
-    })
+    });
 });

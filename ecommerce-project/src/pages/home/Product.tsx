@@ -1,43 +1,31 @@
-import axios from "axios";
 import { useState, type ChangeEvent } from "react";
 import { formatMoney } from "../../utils/money";
-import type { LoadCart } from "../../types/cart";
 import type { Product as ProductType } from "../../types/product";
+import { useAddToCart } from "../../hooks/useApi";
 import CheckmarkIcon from '../../assets/images/icons/checkmark.png';
-
 
 type ProductProps = {
     product: ProductType;
-    loadCart: LoadCart;
 };
 
-function Product({ product, loadCart }: ProductProps) {
-
-    const [quantity, setQuantity] = useState(1)
-
-    const [displayAddedMessage, setDisplayAddedMessage] = useState(false)
+function Product({ product }: ProductProps) {
+    const [quantity, setQuantity] = useState(1);
+    const [displayAddedMessage, setDisplayAddedMessage] = useState(false);
+    const addToCartMutation = useAddToCart();
 
     const addToCart = async () => {
-
-
-
-        await axios.post('/api/cart-items', {
-
-            productId: product.id,
-            quantity
-        });
-
-        await loadCart();
-
-
-        setDisplayAddedMessage(true);
-
-        setTimeout(() => {
-
-            setDisplayAddedMessage(false)
-
-        }, 2000);
-
+        try {
+            await addToCartMutation.mutateAsync({
+                productId: product.id,
+                quantity,
+            });
+            setDisplayAddedMessage(true);
+            setTimeout(() => {
+                setDisplayAddedMessage(false);
+            }, 2000);
+        } catch (error) {
+            console.error('Failed to add to cart:', error);
+        }
     }
 
     const selectQuantity = (event: ChangeEvent<HTMLSelectElement>) => {

@@ -1,39 +1,42 @@
-import axios from "axios";
 import { formatMoney } from "../../utils/money";
 import { useState, type ChangeEvent, type KeyboardEvent } from "react";
-import type { CartItem, LoadCart } from "../../types/cart";
+import type { CartItem } from "../../types/cart";
+import { useRemoveFromCart, useUpdateCartItem } from "../../hooks/useApi";
 
 type CartItemDetailsProps = {
     cartItem: CartItem;
-    loadCart: LoadCart;
 }
 
-function CartItemDetails({ cartItem, loadCart }: CartItemDetailsProps) {
-
+function CartItemDetails({ cartItem }: CartItemDetailsProps) {
     const [isUpdatingQuantity, setIsUpdatingQuantity] = useState(false);
     const [quantity, setQuantity] = useState(cartItem.quantity);
+    const removeFromCartMutation = useRemoveFromCart();
+    const updateCartItemMutation = useUpdateCartItem();
 
     const deleteCartItem = async () => {
-        await axios.delete(`/api/cart-items/${cartItem.productId}`);
-
-        await loadCart();
+        try {
+            await removeFromCartMutation.mutateAsync(cartItem.productId);
+        } catch (error) {
+            console.error('Failed to delete cart item:', error);
+        }
     }
 
     const updateQuantity = async () => {
-
         if (isUpdatingQuantity) {
             setIsUpdatingQuantity(false);
         } else {
             setIsUpdatingQuantity(true);
+            return;
         }
 
-        await axios.put(`/api/cart-items/${cartItem.product.id}`, {
-            quantity: Number(quantity)
-        });
-
-        await loadCart();
-
-
+        try {
+            await updateCartItemMutation.mutateAsync({
+                itemId: cartItem.product.id,
+                quantity: Number(quantity),
+            });
+        } catch (error) {
+            console.error('Failed to update quantity:', error);
+        }
     }
 
     const updateQuantityInput = (event: ChangeEvent<HTMLInputElement>) => {
@@ -41,7 +44,6 @@ function CartItemDetails({ cartItem, loadCart }: CartItemDetailsProps) {
     }
 
     const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
-
         if (event.key === 'Enter') {
             updateQuantity();
         } else if (event.key === 'Escape') {
@@ -49,7 +51,6 @@ function CartItemDetails({ cartItem, loadCart }: CartItemDetailsProps) {
             setIsUpdatingQuantity(false);
         }
     }
-
 
     return (
 

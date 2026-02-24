@@ -1,12 +1,9 @@
 import Header from '../components/Header';
-import type { Cart } from '../types/cart';
+import { useGetCartItems } from '../hooks/useApi';
 import './NotFoundPage.css';
 
-type NotFoundPageProps = {
-    cart: Cart;
-};
-
-function NotFoundPage({ cart }: NotFoundPageProps) {
+function NotFoundPage() {
+    const { data: cart = [] } = useGetCartItems();
 
     return (
 

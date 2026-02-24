@@ -1,20 +1,16 @@
 import Product from './Product';
-import type { LoadCart } from '../../types/cart';
 import type { Product as ProductType } from '../../types/product';
 
 type ProductsGridProps = {
     products: ProductType[];
-    loadCart: LoadCart;
 };
 
-function ProductsGrid({ products, loadCart }: ProductsGridProps) {
-
+function ProductsGrid({ products }: ProductsGridProps) {
     return (
         <div className="products-grid">
-
             {products.map((product) => {
                 return (
-                    <Product key={product.id} product={product} loadCart={loadCart} />
+                    <Product key={product.id} product={product} />
                 );
             })}
         </div>

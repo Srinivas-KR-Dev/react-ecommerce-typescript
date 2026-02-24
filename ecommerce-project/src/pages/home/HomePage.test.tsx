@@ -3,21 +3,16 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { render, screen, within } from '@testing-library/react';
 import { MemoryRouter } from 'react-router';
 import userEvent from '@testing-library/user-event';
+import { QueryClientProvider } from '@tanstack/react-query';
 import { HomePage } from './HomePage';
-import type { LoadCart } from '../../types/cart';
-
+import { queryClient } from '../../utils/queryClient';
 
 vi.mock('axios')
 
 describe('HomePage conponent', () => {
-
-    let loadCart: LoadCart;
-
     let user = userEvent.setup();
 
     beforeEach(() => {
-        loadCart = vi.fn();
-
         const mockedAxiosGet = vi.mocked(axios.get);
 
         mockedAxiosGet.mockImplementation(async (urlPath) => {
@@ -59,12 +54,12 @@ describe('HomePage conponent', () => {
 
 
     it('displays the products correct', async () => {
-
         render(
-            <MemoryRouter>
-                <HomePage cart={[]} loadCart={loadCart} />
-            </MemoryRouter>
-
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <HomePage />
+                </MemoryRouter>
+            </QueryClientProvider>
         );
 
         const productContainers = await screen.findAllByTestId('product-container');
@@ -89,11 +84,12 @@ describe('HomePage conponent', () => {
     });
 
     it('adds a product to the cart', async () => {
-
         render(
-            <MemoryRouter>
-                <HomePage cart={[]} loadCart={loadCart} />
-            </MemoryRouter>
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <HomePage />
+                </MemoryRouter>
+            </QueryClientProvider>
         );
 
         const productContainers = await screen.findAllByTestId('product-container');
@@ -122,7 +118,5 @@ describe('HomePage conponent', () => {
             productId: '15b6fc6f-327a-4ec4-896f-486349e85a3d',
             quantity: 3
         });
-        expect(loadCart).toHaveBeenCalledTimes(2);
-
     });
 });
