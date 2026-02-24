@@ -1,28 +1,18 @@
 import { NavLink, useNavigate, useSearchParams } from 'react-router';
 import { useEffect, useState, type ChangeEvent } from 'react';
-import type { Cart } from '../types/cart';
+import { useGetCartItems } from '../hooks/useApi';
 import CartIcon from '../assets/images/icons/cart-icon.png';
 import SearchIcon from '../assets/images/icons/search-icon.png';
 import LogoWhite from '../assets/images/logo-white.png';
 import MobileLogoWhite from '../assets/images/mobile-logo-white.png';
 import './Header.css';
 
-
-
-type HeaderProps = {
-    cart: Cart;
-};
-
-function Header({ cart }: HeaderProps) {
-
+function Header() {
     const navigate = useNavigate();
-
     const [searchParams] = useSearchParams();
-
     const searchText = searchParams.get('search');
-
-
     const [search, setSearch] = useState(searchText ?? '');
+    const { data: cart = [] } = useGetCartItems();
 
     useEffect(() => {
 
