@@ -1,54 +1,134 @@
-# React + TypeScript + Vite
+# React E-Commerce Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Modern e-commerce web application built with React and TypeScript.
 
-Currently, two official plugins are available:
+This project includes a complete shopping flow with product browsing, cart management, checkout, order history, package tracking, API integration, and dark/light theme support.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This is an ongoing project, and I plan to continue improving features, UI polish, and overall developer experience over time.
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Product listing with search
+- Add to cart with quantity selection
+- Shopping cart updates and item removal
+- Delivery option selection
+- Payment summary and order placement
+- Orders history page
+- Package tracking page
+- API integration with Axios
+- Data caching and mutation handling with TanStack Query
+- Dark and light theme toggle
+- Responsive desktop and mobile layout
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Tech Stack
+
+### Frontend
+
+- React 19
+- TypeScript
+- Vite
+- React Router
+- TanStack React Query
+- Axios
+- Day.js
+
+### Testing
+
+- Vitest
+- React Testing Library
+
+## Screenshots
+
+### Home
+
+![Home page](./screenshots/home.png)
+
+### Checkout
+
+![Checkout page](./screenshots/checkout.png)
+
+### Orders
+
+![Orders page](./screenshots/orders.png)
+
+### Tracking
+
+![Tracking page](./screenshots/tracking.png)
+
+### Not Found
+
+![Not found page](./screenshots/not-found.png)
+
+## Installation
+
+```bash
+git clone https://github.com/Srinivas-KR-Dev/react-ecommerce-typescript
+cd react-ecommerce-typescript
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Local Development
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Prerequisites
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+- Node.js 18+
+- npm
+- Ecommerce API running on `http://localhost:5000`
+
+The frontend uses the Vite proxy for:
+
+- `/api`
+- `/images`
+
+### Start the app
+
+```bash
+npm run dev
 ```
+
+### Build for production
+
+```bash
+npm run build
+```
+
+### Preview production build
+
+```bash
+npm run preview
+```
+
+## Testing
+
+```bash
+npx vitest run
+```
+
+## Project Structure
+
+```text
+src/
+  components/   Shared UI components
+  context/      Theme context
+  hooks/        API hooks with React Query
+  pages/        Home, checkout, orders, tracking, not found
+  types/        Shared TypeScript models
+  utils/        Helpers and query client setup
+```
+
+## Main Routes
+
+- `/`
+- `/checkout`
+- `/orders`
+- `/tracking/:orderId/:productId`
+
+## Notes
+
+- Theme preference is stored locally.
+- Server state is managed with React Query.
+- The current build output is configured to emit into `../ecommerce-backend/dist`.
+
+## Author
+
+Srinivas-KR-DEV
