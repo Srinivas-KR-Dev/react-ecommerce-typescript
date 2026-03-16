@@ -1,12 +1,9 @@
 export type Product = {
-    id: string;
-    image: string;
-    name: string;
-    rating: {
-        stars: number;
-        count: number;
-    };
-    priceCents: number;
-    keywords: string[];
-}
-
+  id: string;
+  image: string;
+  name: string;
+  ratingStars: number;
+  ratingCount: number;
+  priceCents: number;
+  keywords: string[];
+};

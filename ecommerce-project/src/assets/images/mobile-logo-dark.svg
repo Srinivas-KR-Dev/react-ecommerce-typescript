@@ -1,0 +1,6 @@
+<svg width="140" height="40" viewBox="0 0 140 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="2" y="2" width="36" height="36" rx="10" fill="#0F172A"/>
+  <path d="M14 13.5C14 11.0147 16.0147 9 18.5 9H23.5C25.9853 9 28 11.0147 28 13.5C28 15.9853 25.9853 18 23.5 18H18.5C16.0147 18 14 20.0147 14 22.5C14 24.9853 16.0147 27 18.5 27H28" stroke="#34D399" stroke-width="3.2" stroke-linecap="round"/>
+  <path d="M21 11V27" stroke="#F8FAFC" stroke-width="3.2" stroke-linecap="round"/>
+  <text x="46" y="25" fill="#0F172A" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="800" letter-spacing="0.8">S-KR-DEV</text>
+</svg>

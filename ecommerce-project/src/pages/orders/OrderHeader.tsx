@@ -1,31 +1,31 @@
-import dayjs from "dayjs";
-import { formatMoney } from "../../utils/money";
-import type { Order } from "../../types/orders";
+import dayjs from 'dayjs';
+import type { Order } from '../../types/orders';
+import { formatMoney } from '../../utils/money';
 
 type OrderHeaderProps = {
-    order: Order
-}
+  order: Order;
+};
 
 function OrderHeader({ order }: OrderHeaderProps) {
-    return (
-        <div className="order-header">
-            <div className="order-header-left-section">
-                <div className="order-date">
-                    <div className="order-header-label">Order Placed:</div>
-                    <div>{dayjs(order.orderTimeMs).format('MMMM D')}</div>
-                </div>
-                <div className="order-total">
-                    <div className="order-header-label">Total:</div>
-                    <div>{formatMoney(order.totalCostCents)}</div>
-                </div>
-            </div>
-
-            <div className="order-header-right-section">
-                <div className="order-header-label">Order ID:</div>
-                <div>{order.id}</div>
-            </div>
+  return (
+    <div className="order-header">
+      <div className="order-header-left-section">
+        <div className="order-date">
+          <div className="order-header-label">Order Placed:</div>
+          <div>{dayjs(order.orderTimeMs).format('MMMM D')}</div>
         </div>
-    );
+        <div className="order-total">
+          <div className="order-header-label">Total:</div>
+          <div>{formatMoney(order.totalCostCents)}</div>
+        </div>
+      </div>
+
+      <div className="order-header-right-section">
+        <div className="order-header-label">Order ID:</div>
+        <div>{order.id}</div>
+      </div>
+    </div>
+  );
 }
 
 export default OrderHeader;

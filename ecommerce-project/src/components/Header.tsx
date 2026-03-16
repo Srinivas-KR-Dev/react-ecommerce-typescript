@@ -1,98 +1,89 @@
-import { NavLink, useNavigate, useSearchParams } from 'react-router';
 import { useEffect, useState, type ChangeEvent } from 'react';
-import { useGetCartItems } from '../hooks/useApi';
+import { NavLink, useNavigate, useSearchParams } from 'react-router';
 import CartIcon from '../assets/images/icons/cart-icon.png';
 import SearchIcon from '../assets/images/icons/search-icon.png';
-import Logo from '../assets/images/logo.png';
-import LogoWhite from '../assets/images/logo-white.png';
-import MobileLogo from '../assets/images/mobile-logo.png';
-import MobileLogoWhite from '../assets/images/mobile-logo-white.png';
+import LogoDark from '../assets/images/logo-dark.svg';
+import LogoLight from '../assets/images/logo-light.svg';
+import MobileLogoDark from '../assets/images/mobile-logo-dark.svg';
+import MobileLogoLight from '../assets/images/mobile-logo-light.svg';
 import { useTheme } from '../context/ThemeContext';
+import { useGetCartItems } from '../hooks/useApi';
 import './Header.css';
 
 function Header() {
-    const navigate = useNavigate();
-    const [searchParams] = useSearchParams();
-    const searchText = searchParams.get('search');
-    const [search, setSearch] = useState(searchText ?? '');
-    const { data: cart = [] } = useGetCartItems();
-    const { theme, toggleTheme } = useTheme();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const searchText = searchParams.get('search');
+  const [search, setSearch] = useState(searchText ?? '');
+  const { data: cart = [] } = useGetCartItems();
+  const { theme, toggleTheme } = useTheme();
 
-    useEffect(() => {
+  useEffect(() => {
+    setSearch(searchText ?? '');
+  }, [searchText]);
 
-        setSearch(searchText ?? '');
+  const updateSearchInput = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearch(event.target.value);
+  };
 
-    }, [searchText]);
+  const searchProducts = () => {
+    navigate(`/?search=${search}`);
+  };
 
-    const updateSearchInput = (event: ChangeEvent<HTMLInputElement>) => {
-        setSearch(event.target.value);
-    }
+  let totalQuantity = 0;
 
-    const searchProducts = () => {
-        navigate(`/?search=${search}`);
-        /* setSearchParams(
-            {search: search} )*/
+  cart.forEach((cartItem) => {
+    totalQuantity += cartItem.quantity;
+  });
 
+  return (
+    <div className="header">
+      <div className="left-section">
+        <NavLink to="/" className="header-link">
+          <img
+            className="logo"
+            src={theme === 'dark' ? LogoLight : LogoDark}
+            alt="Srinivas KR Dev logo"
+          />
+          <img
+            className="mobile-logo"
+            src={theme === 'dark' ? MobileLogoLight : MobileLogoDark}
+            alt="S KR Dev logo"
+          />
+        </NavLink>
+      </div>
 
-    }
+      <div className="middle-section">
+        <input
+          className="search-bar"
+          type="text"
+          placeholder="Search"
+          value={search}
+          onChange={updateSearchInput}
+        />
 
+        <button className="search-button" onClick={searchProducts}>
+          <img className="search-icon" src={SearchIcon} />
+        </button>
+      </div>
 
-    let totalQuantity = 0;
+      <div className="right-section">
+        <button className="theme-toggle-button" type="button" onClick={toggleTheme}>
+          {theme === 'dark' ? 'Light' : 'Dark'}
+        </button>
 
-    cart.forEach((cartItem) => {
+        <NavLink className="orders-link header-link" to="/orders">
+          <span className="orders-text">Orders</span>
+        </NavLink>
 
-        totalQuantity += cartItem.quantity
-
-    });
-
-
-
-    return (
-
-
-
-        <div className="header">
-
-            <div className="left-section">
-                <NavLink to="/" className="header-link">
-                    <img className="logo"
-                        src={theme === 'dark' ? LogoWhite : Logo} />
-                    <img className="mobile-logo"
-                        src={theme === 'dark' ? MobileLogoWhite : MobileLogo} />
-                </NavLink>
-            </div>
-
-            <div className="middle-section">
-                <input
-                    className="search-bar"
-                    type="text" placeholder="Search"
-                    value={search}
-                    onChange={updateSearchInput} />
-
-                <button className="search-button" onClick={searchProducts}>
-                    <img className="search-icon" src={SearchIcon} />
-                </button>
-            </div>
-
-            <div className="right-section">
-                <button className="theme-toggle-button" type="button" onClick={toggleTheme}>
-                    {theme === 'dark' ? 'Light' : 'Dark'}
-                </button>
-
-                <NavLink className="orders-link header-link" to="/orders">
-
-                    <span className="orders-text">Orders</span>
-                </NavLink>
-
-                <NavLink className="cart-link header-link" to="/checkout">
-                    <img className="cart-icon" src={CartIcon} />
-                    <div className="cart-quantity">{totalQuantity}</div>
-                    <div className="cart-text">Cart</div>
-                </NavLink>
-            </div>
-        </div>
-
-    );
+        <NavLink className="cart-link header-link" to="/checkout">
+          <img className="cart-icon" src={CartIcon} />
+          <div className="cart-quantity">{totalQuantity}</div>
+          <div className="cart-text">Cart</div>
+        </NavLink>
+      </div>
+    </div>
+  );
 }
 
-export default Header
+export default Header;
