@@ -1,6 +1,6 @@
 .header {
-  background-color: rgb(8, 79, 45);
-  color: white;
+  background-color: var(--header-bg);
+  color: var(--header-text);
   padding-left: 15px;
   padding-right: 15px;
 
@@ -35,7 +35,7 @@
 }
 
 .header .header-link:hover {
-  border: 1px solid white;
+  border: 1px solid var(--header-text);
 }
 
 .header .logo {
@@ -71,9 +71,13 @@
   flex: 1;
   width: 0;
   font-size: 16px;
-  height: 38px;
+  height: 40px;
+  box-sizing: border-box;
   padding-left: 15px;
-  border: none;
+  border: 1px solid var(--border-color);
+  border-right: none;
+  background-color: var(--header-search-bg);
+  color: var(--header-search-text);
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
   border-top-right-radius: 0;
@@ -81,42 +85,44 @@
 }
 
 .header .search-button {
-  background-color: rgb(186, 255, 190);
-  border: none;
+  background-color: var(--header-search-button-bg);
+  border: 1px solid var(--border-color);
+  border-left: none;
   width: 45px;
   height: 40px;
+  box-sizing: border-box;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   flex-shrink: 0;
-  
 }
 
 .header .search-button:hover {
-  background-color: rgba(186, 255, 189, 0.927);
+  background-color: var(--header-search-button-hover);
   
 }
 
 .header .search-button:active {
-  background-color: rgb(240, 246, 240);
+  background-color: var(--header-search-button-active);
   
 }
 
 
 .header .search-icon {
   height: 20px;
-  margin-left: 0px;
-  margin-top: 3px;
+  margin: 0;
+  vertical-align: middle;
 }
 
 .header .right-section {
-  width: 180px;
+  width: auto;
   flex-shrink: 0;
   display: flex;
   justify-content: end;
+  gap: 8px;
 }
 
 .header .orders-link {
-  color: white;
+  color: var(--header-text);
 
   display: flex;
   align-items: center;
@@ -137,7 +143,7 @@
 }
 
 .header .cart-link {
-  color: white;
+  color: var(--header-text);
   display: flex;
   align-items: center;
   position: relative;
@@ -154,7 +160,7 @@
 }
 
 .header .cart-quantity {
-  color: rgb(8, 79, 45);
+  color: var(--header-bg);
   font-size: 14px;
   font-weight: 700;
 
@@ -164,5 +170,22 @@
 
   width: 26px;
   text-align: center;
+}
+
+.header .theme-toggle-button {
+  border: 1px solid var(--border-color);
+  background-color: var(--header-search-bg);
+  color: var(--header-search-text);
+  border-radius: 5px;
+  padding: 6px 8px;
+  font-weight: 600;
+  min-width: 56px;
+}
+
+@media (max-width: 575px) {
+  .header .theme-toggle-button {
+    min-width: 52px;
+    font-size: 12px;
+  }
 }
 

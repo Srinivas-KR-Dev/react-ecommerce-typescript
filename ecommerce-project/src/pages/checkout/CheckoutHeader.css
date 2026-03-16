@@ -2,7 +2,8 @@
   height: 60px;
   padding-left: 30px;
   padding-right: 30px;
-  background-color: white;
+  background-color: var(--surface-1);
+  color: var(--text-primary);
 
   display: flex;
   justify-content: center;
@@ -67,7 +68,7 @@
 }
 
 .checkout-header .return-to-home-link {
-  color: rgb(25, 135, 84);
+  color: var(--accent);
 
   text-decoration: none;
   cursor: pointer;
@@ -96,10 +97,21 @@
   display: flex;
   align-items: center;
   justify-content: end;
+  gap: 10px;
 }
 
 .checkout-header .checkout-header-right-section img {
   height: 32px;
+}
+
+.checkout-header .theme-toggle-button {
+  border: 1px solid var(--border-color);
+  background-color: var(--surface-2);
+  color: var(--text-primary);
+  border-radius: 5px;
+  padding: 7px 10px;
+  font-weight: 600;
+  min-width: 64px;
 }
 
 @media (max-width: 1000px) {

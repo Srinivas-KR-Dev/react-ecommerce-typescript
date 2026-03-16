@@ -1,9 +1,64 @@
+/* Theme tokens */
+:root {
+  --bg-page: rgb(255, 255, 255);
+  --text-primary: rgb(33, 33, 33);
+  --text-muted: rgb(120, 120, 120);
+  --surface-1: rgb(255, 255, 255);
+  --surface-2: rgb(250, 250, 250);
+  --border-color: rgb(222, 222, 222);
+  --border-subtle: rgb(240, 240, 240);
+  --accent: rgb(25, 135, 84);
+  --accent-hover: rgba(25, 135, 84, 0.75);
+  --accent-active: rgba(25, 135, 84, 0.5);
+  --on-accent: rgb(255, 255, 255);
+  --header-bg: rgb(8, 79, 45);
+  --header-text: rgb(255, 255, 255);
+  --header-search-bg: rgb(255, 255, 255);
+  --header-search-text: rgb(33, 33, 33);
+  --header-search-button-bg: rgb(186, 255, 190);
+  --header-search-button-hover: rgba(186, 255, 189, 0.927);
+  --header-search-button-active: rgb(240, 246, 240);
+  --button-secondary-bg: rgb(255, 255, 255);
+  --button-secondary-hover: rgb(250, 250, 250);
+  --button-secondary-active: rgb(240, 240, 240);
+  --button-secondary-text: rgb(33, 33, 33);
+  --focus-ring: rgb(25, 135, 84);
+}
+
+body[data-theme='dark'] {
+  --bg-page: rgb(18, 20, 23);
+  --text-primary: rgb(231, 231, 231);
+  --text-muted: rgb(175, 175, 175);
+  --surface-1: rgb(28, 32, 36);
+  --surface-2: rgb(37, 42, 47);
+  --border-color: rgb(66, 73, 81);
+  --border-subtle: rgb(52, 58, 64);
+  --accent: rgb(48, 201, 126);
+  --accent-hover: rgb(40, 170, 107);
+  --accent-active: rgb(33, 142, 90);
+  --on-accent: rgb(10, 15, 12);
+  --header-bg: rgb(19, 24, 29);
+  --header-text: rgb(236, 238, 240);
+  --header-search-bg: rgb(39, 45, 52);
+  --header-search-text: rgb(236, 238, 240);
+  --header-search-button-bg: rgb(52, 125, 86);
+  --header-search-button-hover: rgb(62, 142, 99);
+  --header-search-button-active: rgb(47, 111, 77);
+  --button-secondary-bg: rgb(48, 54, 61);
+  --button-secondary-hover: rgb(57, 63, 71);
+  --button-secondary-active: rgb(44, 49, 56);
+  --button-secondary-text: rgb(236, 238, 240);
+  --focus-ring: rgb(48, 201, 126);
+}
+
 body {
   font-family: Roboto, Arial;
-  color: rgb(33, 33, 33);
+  color: var(--text-primary);
+  background-color: var(--bg-page);
   /* The <body> element has a default margin of 8px
      on all sides. This removes the default margins. */
   margin: 0;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 /* Remove the default margins of <p> elements. */
@@ -25,40 +80,40 @@ input, select, button {
 }
 
 .button-primary {
-  color: rgb(255, 255, 255);
-  background-color: rgb(25, 135, 84);
+  color: var(--on-accent);
+  background-color: var(--accent);
   border: 1px solid transparent;
   border-radius: 5px;
   cursor: pointer;
-  box-shadow: 0 2px 5px rgba(220, 220, 220, 0.5);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
 }
 
 .button-primary:hover {
-  background-color: rgba(25, 135, 84, 0.75);
+  background-color: var(--accent-hover);
   border: 1px solid transparent;
 }
 
 .button-primary:active {
-  background: rgba(25, 135, 84, 0.5);
+  background: var(--accent-active);
   border-color: transparent;
   box-shadow: none;
 }
 
 .button-secondary {
-  color: rgb(33, 33, 33);
-  background: white;
-  border: 1px solid rgb(200, 200, 200);
+  color: var(--button-secondary-text);
+  background: var(--button-secondary-bg);
+  border: 1px solid var(--border-color);
   border-radius: 5px;
   cursor: pointer;
-  box-shadow: 0 2px 5px rgba(220, 220, 220, 0.2);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
 }
 
 .button-secondary:hover {
-  background-color: rgb(250, 250, 250);
+  background-color: var(--button-secondary-hover);
 }
 
 .button-secondary:active {
-  background-color: rgb(240, 240, 240);
+  background-color: var(--button-secondary-active);
   box-shadow: none;
 }
 
@@ -75,7 +130,7 @@ input, select, button {
 }
 
 .link-primary {
-  color: rgb(25, 135, 84);
+  color: var(--accent);
   cursor: pointer;
 }
 
@@ -89,17 +144,17 @@ input, select, button {
 
 /* Styles for dropdown selectors. */
 select {
-  color: rgb(33, 33, 33);
-  background-color: rgb(255, 255, 255);
-  border: 1px solid rgb(200, 200, 200);
+  color: var(--text-primary);
+  background-color: var(--surface-1);
+  border: 1px solid var(--border-color);
   border-radius: 5px;
   padding: 3px 5px;
   font-size: 15px;
   cursor: pointer;
-  box-shadow: 0 1px 3px rgba(200, 200, 200, 0.2);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
 }
 
 select:focus,
 input:focus {
-  outline: 2px solid rgb(25, 135, 84);
+  outline: 2px solid var(--focus-ring);
 }

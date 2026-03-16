@@ -6,6 +6,7 @@ import userEvent from '@testing-library/user-event';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { HomePage } from './HomePage';
 import { queryClient } from '../../utils/queryClient';
+import { ThemeProvider } from '../../context/ThemeContext';
 
 vi.mock('axios')
 
@@ -56,9 +57,11 @@ describe('HomePage conponent', () => {
     it('displays the products correct', async () => {
         render(
             <QueryClientProvider client={queryClient}>
-                <MemoryRouter>
-                    <HomePage />
-                </MemoryRouter>
+                <ThemeProvider>
+                    <MemoryRouter>
+                        <HomePage />
+                    </MemoryRouter>
+                </ThemeProvider>
             </QueryClientProvider>
         );
 
@@ -86,9 +89,11 @@ describe('HomePage conponent', () => {
     it('adds a product to the cart', async () => {
         render(
             <QueryClientProvider client={queryClient}>
-                <MemoryRouter>
-                    <HomePage />
-                </MemoryRouter>
+                <ThemeProvider>
+                    <MemoryRouter>
+                        <HomePage />
+                    </MemoryRouter>
+                </ThemeProvider>
             </QueryClientProvider>
         );
 

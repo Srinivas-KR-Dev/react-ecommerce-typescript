@@ -6,6 +6,7 @@ import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './App.tsx';
 import { queryClient } from './utils/queryClient';
+import { ThemeProvider } from './context/ThemeContext';
 
 createRoot(document.getElementById('root')!).render(
 
@@ -13,11 +14,13 @@ createRoot(document.getElementById('root')!).render(
 
     <QueryClientProvider client={queryClient}>
 
-      <BrowserRouter>
+      <ThemeProvider>
+        <BrowserRouter>
 
-        <App />
+          <App />
 
-      </BrowserRouter>
+        </BrowserRouter>
+      </ThemeProvider>
 
       <ReactQueryDevtools initialIsOpen={false} />
 

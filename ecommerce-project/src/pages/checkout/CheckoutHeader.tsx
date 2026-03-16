@@ -4,12 +4,14 @@ import Logo from '../../assets/images/logo.png';
 import MobileLogo from '../../assets/images/mobile-logo.png';
 import './CheckoutHeader.css';
 import type { Cart } from '../../types/cart';
+import { useTheme } from '../../context/ThemeContext';
 
 type CheckoutHeaderProps = {
     cart: Cart
 }
 
 function CheckoutHeader({ cart }: CheckoutHeaderProps) {
+    const { theme, toggleTheme } = useTheme();
 
 
     let totalQuantity = 0;
@@ -38,6 +40,9 @@ function CheckoutHeader({ cart }: CheckoutHeaderProps) {
                 </div>
 
                 <div className="checkout-header-right-section">
+                    <button className="theme-toggle-button" type="button" onClick={toggleTheme}>
+                        {theme === 'dark' ? 'Light' : 'Dark'}
+                    </button>
                     <img src={CheckoutLockIcon} />
                 </div>
             </div>

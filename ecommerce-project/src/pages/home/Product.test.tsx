@@ -2,9 +2,10 @@ import axios from 'axios';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { QueryClientProvider } from '@tanstack/react-query';
 import Product from './Product';
+import { queryClient } from '../../utils/queryClient';
 import type { Product as ProductType } from '../../types/product';
-import type { LoadCart } from '../../types/cart';
 
 
 
@@ -14,8 +15,6 @@ vi.mock('axios');
 describe('Product component', () => {
 
     let product: ProductType;
-
-    let loadCart: LoadCart;
 
     let user = userEvent.setup();
 
@@ -33,8 +32,7 @@ describe('Product component', () => {
             keywords: ["socks", "sports", "apparel"]
         }
 
-        loadCart = vi.fn();
-
+        vi.mocked(axios.post).mockResolvedValue({ data: {} });
         user = userEvent.setup();
 
     })
@@ -42,7 +40,11 @@ describe('Product component', () => {
     it('displays the product details correctly', () => {
 
 
-        render(<Product product={product} loadCart={loadCart} />);
+        render(
+            <QueryClientProvider client={queryClient}>
+                <Product product={product} />
+            </QueryClientProvider>
+        );
 
         expect(
             screen.getByText('Black and Gray Athletic Cotton Socks - 6 Pairs')
@@ -77,7 +79,11 @@ describe('Product component', () => {
     it('adds a product to cart', async () => {
 
 
-        render(<Product product={product} loadCart={loadCart} />);
+        render(
+            <QueryClientProvider client={queryClient}>
+                <Product product={product} />
+            </QueryClientProvider>
+        );
 
         const addToCartButton = screen.getByTestId('add-to-cart-button');
 
@@ -88,13 +94,15 @@ describe('Product component', () => {
             quantity: 1
         });
 
-        expect(loadCart).toHaveBeenCalled();
-
     });
 
     it('selects a quantity', async () => {
 
-        render(<Product product={product} loadCart={loadCart} />);
+        render(
+            <QueryClientProvider client={queryClient}>
+                <Product product={product} />
+            </QueryClientProvider>
+        );
 
         const quantitySelector = screen.getByTestId('product-quantity-selector');
 
@@ -113,13 +121,15 @@ describe('Product component', () => {
             quantity: 3
         });
 
-        expect(loadCart).toHaveBeenCalled();
-
     });
 
     it('displays added message after clicked the button', async () => {
 
-        render(<Product product={product} loadCart={loadCart} />);
+        render(
+            <QueryClientProvider client={queryClient}>
+                <Product product={product} />
+            </QueryClientProvider>
+        );
 
         const addToCartButton = screen.getByTestId('add-to-cart-button');
 

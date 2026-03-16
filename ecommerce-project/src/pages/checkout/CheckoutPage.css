@@ -44,7 +44,8 @@
 
 .checkout-page .cart-item-container,
 .checkout-page .payment-summary {
-  border: 1px solid rgb(222, 222, 222);
+  border: 1px solid var(--border-color);
+  background-color: var(--surface-1);
   border-radius: 4px;
   padding: 18px;
 }
@@ -69,7 +70,7 @@
 }
 
 .checkout-page .delivery-date {
-  color: rgb(25, 135, 84);
+  color: var(--accent);
   font-weight: 700;
   font-size: 19px;
   margin-top: 5px;
@@ -159,7 +160,7 @@
 }
 
 .checkout-page .delivery-option-price {
-  color: rgb(120, 120, 120);
+  color: var(--text-muted);
   font-size: 15px;
 }
 
@@ -185,7 +186,7 @@
 }
 
 .checkout-page .subtotal-row .payment-summary-money {
-  border-top: 1px solid rgb(222, 222, 222);
+  border-top: 1px solid var(--border-color);
 }
 
 .checkout-page .subtotal-row div {
@@ -193,11 +194,11 @@
 }
 
 .checkout-page .total-row {
-  color: rgb(25, 135, 84);
+  color: var(--accent);
   font-weight: 700;
   font-size: 18px;
 
-  border-top: 1px solid rgb(222, 222, 222);
+  border-top: 1px solid var(--border-color);
   padding-top: 18px;
 }
 
