@@ -129,6 +129,9 @@ src/
 - Server state is managed with React Query.
 - The current build output is configured to emit into `../ecommerce-backend/dist`.
 
+## Live Demo
+https://srinivaskr.live
+
 ## Author
 
 Srinivas-KR-DEV
