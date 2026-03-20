@@ -9,23 +9,15 @@ import { queryClient } from './utils/queryClient';
 import { ThemeProvider } from './context/ThemeContext';
 
 createRoot(document.getElementById('root')!).render(
-
   <StrictMode>
-
     <QueryClientProvider client={queryClient}>
-
       <ThemeProvider>
         <BrowserRouter>
-
           <App />
-
         </BrowserRouter>
       </ThemeProvider>
 
       <ReactQueryDevtools initialIsOpen={false} />
-
     </QueryClientProvider>
-
-  </StrictMode>
-
+  </StrictMode>,
 );

@@ -3,22 +3,20 @@ import Header from '../components/Header';
 import './NotFoundPage.css';
 
 function NotFoundPage() {
-    return (
-        <>
-            <title>404 Page Not Found</title>
-            <link rel="icon" href="home-favicon.png" type="image/png" />
-            <Header />
-            <section className="not-found-message">
-                <h1>🚫404</h1>
-                <p className="not-found-message__p">Page Not Found</p>
-                <Link to="/" className="home-link">
-                    Go back to home
-                </Link>
-            </section>
-
-        </>
-    );
-
+  return (
+    <>
+      <title>404 Page Not Found</title>
+      <link rel='icon' href='home-favicon.png' type='image/png' />
+      <Header />
+      <section className='not-found-message'>
+        <h1>🚫404</h1>
+        <p className='not-found-message__p'>Page Not Found</p>
+        <Link to='/' className='home-link'>
+          Go back to home
+        </Link>
+      </section>
+    </>
+  );
 }
 
 export default NotFoundPage;

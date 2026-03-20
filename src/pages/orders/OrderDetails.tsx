@@ -13,7 +13,7 @@ function OrderDetails({ order }: OrderDetailsProps) {
   const addToCartMutation = useAddToCart();
 
   return (
-    <div className="order-details-grid">
+    <div className='order-details-grid'>
       {order.products.map((orderProduct) => {
         const addToCart = async () => {
           try {
@@ -32,30 +32,38 @@ function OrderDetails({ order }: OrderDetailsProps) {
 
         return (
           <Fragment key={orderProduct.product.id}>
-            <div className="product-image-container">
+            <div className='product-image-container'>
               <img src={orderProduct.product.image} />
             </div>
 
-            <div className="product-details">
-              <div className="product-name">{orderProduct.product.name}</div>
-              <div className="product-delivery-date">
-                Arriving on: {dayjs(orderProduct.estimatedDeliveryTimeMs).format('MMMM D')}
+            <div className='product-details'>
+              <div className='product-name'>{orderProduct.product.name}</div>
+              <div className='product-delivery-date'>
+                Arriving on:{' '}
+                {dayjs(orderProduct.estimatedDeliveryTimeMs).format('MMMM D')}
               </div>
-              <div className="product-quantity">Quantity: {orderProduct.quantity}</div>
-              <button className="buy-again-button button-primary" onClick={addToCart}>
+              <div className='product-quantity'>
+                Quantity: {orderProduct.quantity}
+              </div>
+              <button
+                className='buy-again-button button-primary'
+                onClick={addToCart}
+              >
                 <img
-                  className="buy-again-icon"
+                  className='buy-again-icon'
                   src={`images/icons/${displayAddedMessage ? 'checkmark-white.png' : 'buy-again.png'}`}
                 />
-                <span className="buy-again-message">
+                <span className='buy-again-message'>
                   {displayAddedMessage ? 'Added' : 'Add to Cart'}
                 </span>
               </button>
             </div>
 
-            <div className="product-actions">
+            <div className='product-actions'>
               <Link to={`/tracking/${order.id}/${orderProduct.product.id}`}>
-                <button className="track-package-button button-secondary">Track package</button>
+                <button className='track-package-button button-secondary'>
+                  Track package
+                </button>
               </Link>
             </div>
           </Fragment>

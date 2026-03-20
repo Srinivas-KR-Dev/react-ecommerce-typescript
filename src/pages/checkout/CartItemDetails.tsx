@@ -54,18 +54,20 @@ function CartItemDetails({ cartItem }: CartItemDetailsProps) {
 
   return (
     <>
-      <img className="product-image" src={cartItem.product.image} />
+      <img className='product-image' src={cartItem.product.image} />
 
-      <div className="cart-item-details">
-        <div className="product-name">{cartItem.product.name}</div>
-        <div className="product-price">{formatMoney(cartItem.product.priceCents)}</div>
-        <div className="product-quantity">
+      <div className='cart-item-details'>
+        <div className='product-name'>{cartItem.product.name}</div>
+        <div className='product-price'>
+          {formatMoney(cartItem.product.priceCents)}
+        </div>
+        <div className='product-quantity'>
           <span>
             Quantity:
             {isUpdatingQuantity ? (
               <input
-                className="quantity-input"
-                type="number"
+                className='quantity-input'
+                type='number'
                 min={1}
                 max={10}
                 value={quantity}
@@ -73,13 +75,19 @@ function CartItemDetails({ cartItem }: CartItemDetailsProps) {
                 onKeyDown={handleKeyDown}
               />
             ) : (
-              <span className="quantity-label">{cartItem.quantity}</span>
+              <span className='quantity-label'>{cartItem.quantity}</span>
             )}
           </span>
-          <span className="update-quantity-link link-primary" onClick={updateQuantity}>
+          <span
+            className='update-quantity-link link-primary'
+            onClick={updateQuantity}
+          >
             {isUpdatingQuantity ? 'Save' : 'Update'}
           </span>
-          <span className="delete-quantity-link link-primary" onClick={deleteCartItem}>
+          <span
+            className='delete-quantity-link link-primary'
+            onClick={deleteCartItem}
+          >
             Delete
           </span>
         </div>
