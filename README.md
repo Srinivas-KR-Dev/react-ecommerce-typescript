@@ -2,7 +2,7 @@
 
 Modern e-commerce web application built with React and TypeScript.
 
-This project includes a complete shopping flow with product browsing, cart management, checkout, order history, package tracking, API integration, and dark/light theme support.
+This project includes a complete shopping flow with product browsing, cart management, checkout, order history, package tracking, API integration, INR price display, and dark/light theme support.
 
 This is an ongoing project, and I plan to continue improving features, UI polish, and overall developer experience over time.
 
@@ -12,12 +12,12 @@ This is an ongoing project, and I plan to continue improving features, UI polish
 - Add to cart with quantity selection
 - Shopping cart updates and item removal
 - Delivery option selection
-- Payment summary and order placement
+- Payment summary, INR price display, and order placement
 - Orders history page
 - Package tracking page
 - API integration with Axios
 - Data caching and mutation handling with TanStack Query
-- Dark and light theme toggle
+- Floating dark and light theme toggle
 - Responsive desktop and mobile layout
 
 ## Tech Stack
@@ -38,6 +38,8 @@ This is an ongoing project, and I plan to continue improving features, UI polish
 - React Testing Library
 
 ## Screenshots
+
+The screenshots below reflect the latest version of the UI.
 
 ### Home
 
@@ -131,11 +133,13 @@ src/
 
 - Theme preference is stored locally.
 - Server state is managed with React Query.
-- The current build output is configured to emit into `../ecommerce-backend/dist`.
+- The current build output is configured to emit into `../ecomm-backend-MongoDB/dist`.
 
 ## Live Demo
 
 https://srinivaskr.live
+
+Deployed using AWS Elastic Beanstalk, with MongoDB Atlas Cloud as the database and SSL certificate enabled for secure access.
 
 ## Author
 
