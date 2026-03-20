@@ -2,8 +2,10 @@ export type Product = {
   id: string;
   image: string;
   name: string;
-  ratingStars: number;
-  ratingCount: number;
+  rating: {
+    count: number;
+    stars: number;
+  };
   priceCents: number;
   keywords: string[];
 };

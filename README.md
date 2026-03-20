@@ -73,12 +73,16 @@ npm install
 
 - Node.js 18+
 - npm
-- Ecommerce API running on `http://localhost:5000`
+- Ecommerce API running on `http://localhost:7000`
 
-The frontend uses the Vite proxy for:
+### Environment Variables
 
-- `/api`
-- `/images`
+Create a `.env` file in the project root, or copy `.env.example`:
+
+```env
+VITE_API_BASE_URL=http://localhost:7000
+VITE_IMAGES_BASE_URL=http://localhost:7000
+```
 
 ### Start the app
 
@@ -130,6 +134,7 @@ src/
 - The current build output is configured to emit into `../ecommerce-backend/dist`.
 
 ## Live Demo
+
 https://srinivaskr.live
 
 ## Author

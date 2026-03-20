@@ -12,14 +12,14 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://localhost:5000",
+        target: "http://localhost:7000",
       },
       "/images": {
-        target: "http://localhost:5000",
+        target: "http://localhost:7000",
       },
     },
   },
   build: {
-    outDir: "../ecommerce-backend/dist",
+    outDir: "../ecomm-backend-MongoDB/dist",
   },
 });
