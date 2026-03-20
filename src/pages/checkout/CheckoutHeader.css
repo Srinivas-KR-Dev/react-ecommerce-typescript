@@ -107,17 +107,58 @@
 }
 
 .checkout-header .theme-toggle-button {
-  border: 1px solid var(--border-color);
-  background-color: var(--surface-2);
+  position: fixed;
+  left: 16px;
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  z-index: 1100;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background-color: rgba(255, 255, 255, 0.5);
   color: var(--text-primary);
-  border-radius: 5px;
-  padding: 7px 10px;
-  font-weight: 600;
-  min-width: 64px;
+  border-radius: 999px;
+  min-width: 62px;
+  min-height: 44px;
+  padding: 0 16px;
+  font-weight: 700;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+}
+
+.checkout-header .theme-toggle-button:hover {
+  background-color: rgba(255, 255, 255, 0.62);
+}
+
+.checkout-header .theme-toggle-button:active {
+  background-color: rgba(255, 255, 255, 0.72);
+}
+
+body[data-theme="dark"] .checkout-header .theme-toggle-button {
+  border-color: rgba(255, 255, 255, 0.12);
+  background-color: rgba(17, 24, 32, 0.58);
+  color: var(--header-text);
+}
+
+body[data-theme="dark"] .checkout-header .theme-toggle-button:hover {
+  background-color: rgba(27, 37, 47, 0.72);
+}
+
+body[data-theme="dark"] .checkout-header .theme-toggle-button:active {
+  background-color: rgba(36, 48, 60, 0.84);
 }
 
 @media (max-width: 1000px) {
   .checkout-header .checkout-header-right-section {
     width: auto;
+  }
+}
+
+@media (max-width: 575px) {
+  .checkout-header .theme-toggle-button {
+    left: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    min-width: 58px;
+    min-height: 42px;
+    padding: 0 14px;
+    font-size: 13px;
   }
 }

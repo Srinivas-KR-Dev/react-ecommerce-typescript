@@ -1,6 +1,10 @@
+const rupeeFormatter = new Intl.NumberFormat("en-IN", {
+  style: "currency",
+  currency: "INR",
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+});
+
 export function formatMoney(amountCents: number) {
-    if (amountCents < 0) {
-        return `-$${(Math.abs(amountCents) / 100).toFixed(2)}`
-    }
-    return `$${(amountCents / 100).toFixed(2)}`;
+  return rupeeFormatter.format(amountCents / 100);
 }

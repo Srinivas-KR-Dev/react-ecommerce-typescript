@@ -1,25 +1,25 @@
-import { useEffect, useState, type ChangeEvent } from 'react';
-import { NavLink, useNavigate, useSearchParams } from 'react-router';
-import CartIcon from '../assets/images/icons/cart-icon.png';
-import SearchIcon from '../assets/images/icons/search-icon.png';
-import LogoDark from '../assets/images/logo-dark.svg';
-import LogoLight from '../assets/images/logo-light.svg';
-import MobileLogoDark from '../assets/images/mobile-logo-dark.svg';
-import MobileLogoLight from '../assets/images/mobile-logo-light.svg';
-import { useTheme } from '../context/ThemeContext';
-import { useGetCartItems } from '../hooks/useApi';
-import './Header.css';
+import { useEffect, useState, type ChangeEvent } from "react";
+import { NavLink, useNavigate, useSearchParams } from "react-router";
+import CartIcon from "../assets/images/icons/cart-icon.png";
+import SearchIcon from "../assets/images/icons/search-icon.png";
+import LogoDark from "../assets/images/logo-dark.svg";
+import LogoLight from "../assets/images/logo-light.svg";
+import MobileLogoDark from "../assets/images/mobile-logo-dark.svg";
+import MobileLogoLight from "../assets/images/mobile-logo-light.svg";
+import { useTheme } from "../context/ThemeContext";
+import { useGetCartItems } from "../hooks/useApi";
+import "./Header.css";
 
 function Header() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const searchText = searchParams.get('search');
-  const [search, setSearch] = useState(searchText ?? '');
+  const searchText = searchParams.get("search");
+  const [search, setSearch] = useState(searchText ?? "");
   const { data: cart = [] } = useGetCartItems();
   const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
-    setSearch(searchText ?? '');
+    setSearch(searchText ?? "");
   }, [searchText]);
 
   const updateSearchInput = (event: ChangeEvent<HTMLInputElement>) => {
@@ -42,12 +42,12 @@ function Header() {
         <NavLink to="/" className="header-link">
           <img
             className="logo"
-            src={theme === 'dark' ? LogoLight : LogoDark}
+            src={theme === "dark" ? LogoLight : LogoDark}
             alt="Srinivas KR Dev logo"
           />
           <img
             className="mobile-logo"
-            src={theme === 'dark' ? MobileLogoLight : MobileLogoDark}
+            src={theme === "dark" ? MobileLogoLight : MobileLogoDark}
             alt="S KR Dev logo"
           />
         </NavLink>
@@ -68,8 +68,12 @@ function Header() {
       </div>
 
       <div className="right-section">
-        <button className="theme-toggle-button" type="button" onClick={toggleTheme}>
-          {theme === 'dark' ? 'Light' : 'Dark'}
+        <button
+          className="theme-toggle-button"
+          type="button"
+          onClick={toggleTheme}
+        >
+          {theme === "dark" ? "Light" : "Dark"}
         </button>
 
         <NavLink className="orders-link header-link" to="/orders">
