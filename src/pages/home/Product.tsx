@@ -1,4 +1,4 @@
-import { useState, type ChangeEvent } from 'react';
+import { useEffect, useRef, useState, type ChangeEvent } from 'react';
 import CheckmarkIcon from '../../assets/images/icons/checkmark.png';
 import { useAddToCart } from '../../hooks/useApi';
 import type { Product as ProductType } from '../../types/product';
@@ -12,7 +12,16 @@ function Product({ product }: ProductProps) {
   const [quantity, setQuantity] = useState(1);
   const [displayAddedMessage, setDisplayAddedMessage] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const addedMessageTimeoutRef = useRef<number | null>(null);
   const addToCartMutation = useAddToCart();
+
+  useEffect(() => {
+    return () => {
+      if (addedMessageTimeoutRef.current !== null) {
+        window.clearTimeout(addedMessageTimeoutRef.current);
+      }
+    };
+  }, []);
 
   const addToCart = async () => {
     try {
@@ -22,8 +31,12 @@ function Product({ product }: ProductProps) {
       });
       setErrorMessage(null);
       setDisplayAddedMessage(true);
-      setTimeout(() => {
+      if (addedMessageTimeoutRef.current !== null) {
+        window.clearTimeout(addedMessageTimeoutRef.current);
+      }
+      addedMessageTimeoutRef.current = window.setTimeout(() => {
         setDisplayAddedMessage(false);
+        addedMessageTimeoutRef.current = null;
       }, 2000);
     } catch (error) {
       console.error('Failed to add to cart:', error);
