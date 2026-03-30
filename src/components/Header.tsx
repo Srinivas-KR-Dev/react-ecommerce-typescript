@@ -27,7 +27,16 @@ function Header() {
   };
 
   const searchProducts = () => {
-    navigate(`/?search=${search}`);
+    const trimmed = search.trim();
+
+    // If the search is empty, go to the home route without a query param.
+    if (!trimmed) {
+      navigate('/');
+      return;
+    }
+
+    // Encode to keep special characters (spaces, %) from breaking the query string.
+    navigate(`/?search=${encodeURIComponent(trimmed)}`);
   };
 
   let totalQuantity = 0;
