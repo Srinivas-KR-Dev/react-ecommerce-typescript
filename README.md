@@ -76,6 +76,7 @@ npm install
 - Node.js 18+
 - npm
 - Ecommerce API running on `http://localhost:7000`
+- Backend repo cloned at the same directory level as this repo
 
 ### API Setup
 
@@ -99,6 +100,12 @@ npm run dev
 ```bash
 npm run build
 ```
+
+Important:
+
+- `npm run build` outputs directly into `../ecomm-backend-MongoDB/dist`
+- this project is intentionally configured to work with the backend repo living alongside this repo
+- if you clone only this frontend repo, update `build.outDir` in `vite.config.ts` before using the production build output
 
 ### Preview production build
 
@@ -135,7 +142,7 @@ src/
 
 - Theme preference is stored locally.
 - Server state is managed with React Query.
-- The current build output is configured to emit into `../ecomm-backend-MongoDB/dist`.
+- `npm run build` outputs directly into the backend's `dist/` folder (`../ecomm-backend-MongoDB/dist`), where Express serves it as static files on the same origin, so `/api` and `/images` routes resolve automatically with no CORS configuration needed.
 
 ## Live Demo
 
