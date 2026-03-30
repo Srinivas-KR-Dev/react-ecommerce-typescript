@@ -1,17 +1,16 @@
 import axios from 'axios';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { QueryClientProvider } from '@tanstack/react-query';
 import Product from './Product';
-import { queryClient } from '../../utils/queryClient';
 import type { Product as ProductType } from '../../types/product';
 
 vi.mock('axios');
 
 describe('Product component', () => {
   let product: ProductType;
-
+  let queryClient: QueryClient;
   let user = userEvent.setup();
 
   beforeEach(() => {
@@ -26,6 +25,17 @@ describe('Product component', () => {
       priceCents: 1090,
       keywords: ['socks', 'sports', 'apparel'],
     };
+
+    queryClient = new QueryClient({
+      defaultOptions: {
+        queries: {
+          retry: false,
+        },
+        mutations: {
+          retry: false,
+        },
+      },
+    });
 
     vi.mocked(axios.post).mockResolvedValue({ data: {} });
     user = userEvent.setup();
@@ -122,6 +132,28 @@ describe('Product component', () => {
 
     expect(addedMessage).toHaveStyle({
       opacity: 1,
+    });
+  });
+
+  it('renders a mutation error message when adding to cart fails', async () => {
+    vi.mocked(axios.post).mockRejectedValue({
+      response: {
+        data: {
+          message: 'Unable to add item right now',
+        },
+      },
+    });
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Product product={product} />
+      </QueryClientProvider>,
+    );
+
+    await user.click(screen.getByTestId('add-to-cart-button'));
+
+    await waitFor(() => {
+      expect(screen.getByText('Unable to add item right now')).toBeInTheDocument();
     });
   });
 });
