@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useCreateOrder } from '../../hooks/useApi';
 import type { PaymentSummary as PaymentSummaryType } from '../../types/paymentSummary';
@@ -10,13 +11,26 @@ type PaymentSummaryProps = {
 function PaymentSummary({ paymentSummary }: PaymentSummaryProps) {
   const navigate = useNavigate();
   const createOrderMutation = useCreateOrder();
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const createOrder = async () => {
     try {
       await createOrderMutation.mutateAsync();
+      setErrorMessage(null);
       navigate('/orders');
     } catch (error) {
       console.error('Failed to create order:', error);
+
+      const axiosError = error as {
+        response?: { data?: { message?: string } };
+        message?: string;
+      };
+
+      const message =
+        axiosError.response?.data?.message ??
+        axiosError.message ??
+        'Failed to place order. Please try again.';
+      setErrorMessage(message);
     }
   };
 
@@ -86,6 +100,15 @@ function PaymentSummary({ paymentSummary }: PaymentSummaryProps) {
               ? 'Placing order...'
               : 'Place your order'}
           </button>
+
+          {errorMessage && (
+            <div
+              className='payment-summary-error'
+              style={{ marginTop: 8, color: 'red', fontSize: 13 }}
+            >
+              {errorMessage}
+            </div>
+          )}
         </>
       )}
     </div>

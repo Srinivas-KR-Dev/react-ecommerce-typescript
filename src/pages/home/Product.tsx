@@ -11,6 +11,7 @@ type ProductProps = {
 function Product({ product }: ProductProps) {
   const [quantity, setQuantity] = useState(1);
   const [displayAddedMessage, setDisplayAddedMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const addToCartMutation = useAddToCart();
 
   const addToCart = async () => {
@@ -19,12 +20,24 @@ function Product({ product }: ProductProps) {
         productId: product.id,
         quantity,
       });
+      setErrorMessage(null);
       setDisplayAddedMessage(true);
       setTimeout(() => {
         setDisplayAddedMessage(false);
       }, 2000);
     } catch (error) {
       console.error('Failed to add to cart:', error);
+
+      const axiosError = error as {
+        response?: { data?: { message?: string } };
+        message?: string;
+      };
+
+      const message =
+        axiosError.response?.data?.message ??
+        axiosError.message ??
+        'Failed to add to cart. Please try again.';
+      setErrorMessage(message);
     }
   };
 
@@ -95,6 +108,11 @@ function Product({ product }: ProductProps) {
       >
         Add to Cart
       </button>
+      {errorMessage && (
+        <div className='product-error' style={{ marginTop: 8, color: 'red', fontSize: 13 }}>
+          {errorMessage}
+        </div>
+      )}
     </div>
   );
 }

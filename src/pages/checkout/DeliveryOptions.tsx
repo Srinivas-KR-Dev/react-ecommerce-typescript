@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import dayjs from 'dayjs';
 import { formatMoney } from '../../utils/money';
 import type { CartItem } from '../../types/cart';
@@ -11,6 +12,9 @@ type DeliveryOptionsProps = {
 
 function DeliveryOptions({ deliveryOptions, cartItem }: DeliveryOptionsProps) {
   const updateCartItemMutation = useUpdateCartItem();
+  const [optionErrors, setOptionErrors] = useState<Record<string, string | null>>(
+    {},
+  );
 
   return (
     <div className='delivery-options'>
@@ -28,8 +32,26 @@ function DeliveryOptions({ deliveryOptions, cartItem }: DeliveryOptionsProps) {
               itemId: cartItem.productId,
               deliveryOptionId: deliveryOption.id,
             });
+            setOptionErrors((prev) => ({
+              ...prev,
+              [deliveryOption.id]: null,
+            }));
           } catch (error) {
             console.error('Failed to update delivery option:', error);
+
+            const axiosError = error as {
+              response?: { data?: { message?: string } };
+              message?: string;
+            };
+
+            const message =
+              axiosError.response?.data?.message ??
+              axiosError.message ??
+              'Failed to update delivery option. Please try again.';
+            setOptionErrors((prev) => ({
+              ...prev,
+              [deliveryOption.id]: message,
+            }));
           }
         };
 
@@ -53,6 +75,14 @@ function DeliveryOptions({ deliveryOptions, cartItem }: DeliveryOptionsProps) {
                 )}
               </div>
               <div className='delivery-option-price'>{priceString}</div>
+              {optionErrors[deliveryOption.id] && (
+                <div
+                  className='delivery-options-error'
+                  style={{ marginTop: 4, color: 'red', fontSize: 13 }}
+                >
+                  {optionErrors[deliveryOption.id]}
+                </div>
+              )}
             </div>
           </div>
         );
