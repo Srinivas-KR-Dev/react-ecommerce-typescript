@@ -138,4 +138,33 @@ describe('Header component', () => {
       '/?search=running%20shoes',
     );
   });
+
+  it('navigates to home without a query when search is empty', async () => {
+    render(
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider>
+          <MemoryRouter initialEntries={['/?search=socks']}>
+            <Routes>
+              <Route
+                path='/'
+                element={
+                  <>
+                    <Header />
+                    <LocationDisplay />
+                  </>
+                }
+              />
+            </Routes>
+          </MemoryRouter>
+        </ThemeProvider>
+      </QueryClientProvider>,
+    );
+
+    const searchInput = screen.getByRole('textbox', { name: 'Search products' });
+    await user.clear(searchInput);
+    await user.click(screen.getByRole('button', { name: 'Search products' }));
+
+    expect(screen.getByTestId('location-display')).toHaveTextContent('/');
+    expect(screen.getByTestId('location-display')).not.toHaveTextContent('?search=');
+  });
 });
