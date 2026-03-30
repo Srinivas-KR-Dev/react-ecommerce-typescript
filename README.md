@@ -77,14 +77,16 @@ npm install
 - npm
 - Ecommerce API running on `http://localhost:7000`
 
-### Environment Variables
+### API Setup
 
-Create a `.env` file in the project root, or copy `.env.example`:
+The frontend uses relative `/api` and `/images` paths in the codebase.
 
-```env
-VITE_API_BASE_URL=http://localhost:7000
-VITE_IMAGES_BASE_URL=http://localhost:7000
-```
+During local development, Vite proxies those requests to:
+
+- `http://localhost:7000/api`
+- `http://localhost:7000/images`
+
+For the current setup, you only need the backend running on port `7000`.
 
 ### Start the app
 
