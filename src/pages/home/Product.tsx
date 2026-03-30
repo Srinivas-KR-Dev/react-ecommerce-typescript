@@ -52,6 +52,7 @@ function Product({ product }: ProductProps) {
           className='product-image'
           data-testid='product-image'
           src={product.image}
+          alt={product.name}
         />
       </div>
 
@@ -62,6 +63,7 @@ function Product({ product }: ProductProps) {
           className='product-rating-stars'
           data-testid='product-rating-stars'
           src={`images/ratings/rating-${product.rating.stars * 10}.png`}
+          alt={`${product.rating.stars} out of 5 stars`}
         />
         <div className='product-rating-count link-primary'>
           {product.rating.count}
@@ -97,7 +99,7 @@ function Product({ product }: ProductProps) {
           opacity: displayAddedMessage ? 1 : 0,
         }}
       >
-        <img src={CheckmarkIcon} />
+        <img src={CheckmarkIcon} alt='' />
         Added
       </div>
 

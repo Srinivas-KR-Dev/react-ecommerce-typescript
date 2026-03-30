@@ -69,10 +69,15 @@ function Header() {
           placeholder='Search'
           value={search}
           onChange={updateSearchInput}
+          aria-label='Search products'
         />
 
-        <button className='search-button' onClick={searchProducts}>
-          <img className='search-icon' src={SearchIcon} />
+        <button
+          className='search-button'
+          onClick={searchProducts}
+          aria-label='Search products'
+        >
+          <img className='search-icon' src={SearchIcon} alt='' />
         </button>
       </div>
 
@@ -90,7 +95,7 @@ function Header() {
         </NavLink>
 
         <NavLink className='cart-link header-link' to='/checkout'>
-          <img className='cart-icon' src={CartIcon} />
+          <img className='cart-icon' src={CartIcon} alt='' />
           <div className='cart-quantity'>{totalQuantity}</div>
           <div className='cart-text'>Cart</div>
         </NavLink>
