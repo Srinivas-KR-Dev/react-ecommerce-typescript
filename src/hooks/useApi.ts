@@ -1,6 +1,10 @@
 import axios from 'axios';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import type { Cart } from '../types/cart';
+import type { Cart, CartItem } from '../types/cart';
+import type { DeliveryOptions } from '../types/deliveryOptions';
+import type { Order, Orders } from '../types/orders';
+import type { PaymentSummary } from '../types/paymentSummary';
+import type { Product } from '../types/product';
 
 const API_BASE_URL = '/api';
 
@@ -10,9 +14,9 @@ const API_BASE_URL = '/api';
  * Fetch cart items with expanded product data
  */
 export const useGetCartItems = () => {
-  return useQuery({
+  return useQuery<Cart>({
     queryKey: ['cart-items'],
-    queryFn: async () => {
+    queryFn: async (): Promise<Cart> => {
       const response = await axios.get<Cart>(
         `${API_BASE_URL}/cart-items?expand=product`,
       );
@@ -25,13 +29,13 @@ export const useGetCartItems = () => {
  * Fetch products with optional search
  */
 export const useGetProducts = (search?: string) => {
-  return useQuery({
+  return useQuery<Product[]>({
     queryKey: ['products', search],
-    queryFn: async () => {
+    queryFn: async (): Promise<Product[]> => {
       const urlPath = search
         ? `${API_BASE_URL}/products?search=${search}`
         : `${API_BASE_URL}/products`;
-      const response = await axios.get(urlPath);
+      const response = await axios.get<Product[]>(urlPath);
       return response.data;
     },
   });
@@ -41,10 +45,10 @@ export const useGetProducts = (search?: string) => {
  * Fetch delivery options with expanded data
  */
 export const useGetDeliveryOptions = () => {
-  return useQuery({
+  return useQuery<DeliveryOptions>({
     queryKey: ['delivery-options'],
-    queryFn: async () => {
-      const response = await axios.get(
+    queryFn: async (): Promise<DeliveryOptions> => {
+      const response = await axios.get<DeliveryOptions>(
         `${API_BASE_URL}/delivery-options?expand=estimatedDeliveryTime`,
       );
       return response.data;
@@ -56,10 +60,12 @@ export const useGetDeliveryOptions = () => {
  * Fetch payment summary
  */
 export const useGetPaymentSummary = (cartDependency?: unknown) => {
-  return useQuery({
+  return useQuery<PaymentSummary>({
     queryKey: ['payment-summary', cartDependency],
-    queryFn: async () => {
-      const response = await axios.get(`${API_BASE_URL}/payment-summary`);
+    queryFn: async (): Promise<PaymentSummary> => {
+      const response = await axios.get<PaymentSummary>(
+        `${API_BASE_URL}/payment-summary`,
+      );
       return response.data;
     },
   });
@@ -69,10 +75,10 @@ export const useGetPaymentSummary = (cartDependency?: unknown) => {
  * Fetch all orders
  */
 export const useGetOrders = () => {
-  return useQuery({
+  return useQuery<Orders>({
     queryKey: ['orders'],
-    queryFn: async () => {
-      const response = await axios.get(
+    queryFn: async (): Promise<Orders> => {
+      const response = await axios.get<Orders>(
         `${API_BASE_URL}/orders?expand=products`,
       );
       return response.data;
@@ -84,10 +90,10 @@ export const useGetOrders = () => {
  * Fetch a single order by ID
  */
 export const useGetOrderById = (orderId?: string) => {
-  return useQuery({
+  return useQuery<Order>({
     queryKey: ['order', orderId],
-    queryFn: async () => {
-      const response = await axios.get(
+    queryFn: async (): Promise<Order> => {
+      const response = await axios.get<Order>(
         `${API_BASE_URL}/orders/${orderId}?expand=products`,
       );
       return response.data;
@@ -104,9 +110,14 @@ export const useGetOrderById = (orderId?: string) => {
 export const useAddToCart = () => {
   const queryClient = useQueryClient();
 
-  return useMutation({
-    mutationFn: async (data: { productId: string; quantity: number }) => {
-      const response = await axios.post(`${API_BASE_URL}/cart-items`, data);
+  return useMutation<CartItem, Error, { productId: string; quantity: number }>({
+    mutationFn: async (
+      data: { productId: string; quantity: number },
+    ): Promise<CartItem> => {
+      const response = await axios.post<CartItem>(
+        `${API_BASE_URL}/cart-items`,
+        data,
+      );
       return response.data;
     },
     onSuccess: () => {
@@ -122,13 +133,21 @@ export const useAddToCart = () => {
 export const useUpdateCartItem = () => {
   const queryClient = useQueryClient();
 
-  return useMutation({
+  return useMutation<
+    CartItem,
+    Error,
+    {
+      itemId: string;
+      quantity?: number;
+      deliveryOptionId?: string;
+    }
+  >({
     mutationFn: async (data: {
       itemId: string;
       quantity?: number;
       deliveryOptionId?: string;
-    }) => {
-      const response = await axios.put(
+    }): Promise<CartItem> => {
+      const response = await axios.put<CartItem>(
         `${API_BASE_URL}/cart-items/${data.itemId}`,
         {
           ...(data.quantity !== undefined && { quantity: data.quantity }),
@@ -152,8 +171,8 @@ export const useUpdateCartItem = () => {
 export const useRemoveFromCart = () => {
   const queryClient = useQueryClient();
 
-  return useMutation({
-    mutationFn: async (itemId: string) => {
+  return useMutation<void, Error, string>({
+    mutationFn: async (itemId: string): Promise<void> => {
       await axios.delete(`${API_BASE_URL}/cart-items/${itemId}`);
     },
     onSuccess: () => {
@@ -169,9 +188,9 @@ export const useRemoveFromCart = () => {
 export const useCreateOrder = () => {
   const queryClient = useQueryClient();
 
-  return useMutation({
-    mutationFn: async () => {
-      const response = await axios.post(`${API_BASE_URL}/orders`);
+  return useMutation<Order, Error, void>({
+    mutationFn: async (): Promise<Order> => {
+      const response = await axios.post<Order>(`${API_BASE_URL}/orders`);
       return response.data;
     },
     onSuccess: () => {
