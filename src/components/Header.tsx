@@ -39,14 +39,16 @@ function Header() {
   };
 
   const toggleAiMode = () => {
-    if (!searchText?.trim()) return;
-    const newParams = new URLSearchParams(searchParams);
+    const trimmed = search.trim();
+    if (!trimmed) return;
+
     if (aiMode) {
-      newParams.delete('ai');
+      // Turn AI off — keep search param, remove ai param
+      navigate(`/?search=${encodeURIComponent(trimmed)}`);
     } else {
-      newParams.set('ai', 'true');
+      // Turn AI on — set both search and ai params
+      navigate(`/?search=${encodeURIComponent(trimmed)}&ai=true`);
     }
-    setSearchParams(newParams);
   };
 
   let totalQuantity = 0;

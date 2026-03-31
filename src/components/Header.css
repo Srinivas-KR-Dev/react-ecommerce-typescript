@@ -1,3 +1,17 @@
+@keyframes ai-pulse {
+  0% {
+    box-shadow: 0 0 0 0px color-mix(in srgb, var(--accent) 50%, transparent);
+  }
+
+  60% {
+    box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 0%, transparent);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0px color-mix(in srgb, var(--accent) 0%, transparent);
+  }
+}
+
 .header {
   background-color: var(--header-bg);
   color: var(--header-text);
@@ -67,6 +81,8 @@
   margin-left: 10px;
   margin-right: 10px;
   display: flex;
+  align-items: center;
+  position: relative;
 }
 
 .header .search-bar {
@@ -76,6 +92,7 @@
   height: 40px;
   box-sizing: border-box;
   padding-left: 15px;
+  padding-right: 70px;
   border: 1px solid var(--border-color);
   border-right: none;
   background-color: var(--header-search-bg);
@@ -84,6 +101,48 @@
   border-bottom-left-radius: 5px;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
+}
+
+.header .ai-pill {
+  position: absolute;
+  right: 50px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 26px;
+  padding: 0 10px;
+  border-radius: 999px;
+  border: 1.5px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s,
+    box-shadow 0.15s;
+  white-space: nowrap;
+  z-index: 1;
+  box-shadow: 0 0 0 0px var(--accent);
+  animation: ai-pulse 1.8s ease-out 1s 3;
+  animation-fill-mode: backwards;
+}
+
+.header .ai-pill:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.header .ai-pill.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent);
+}
+
+.header .ai-pill.active:hover {
+  opacity: 0.88;
+  color: #fff;
 }
 
 .header .search-button {
@@ -209,6 +268,12 @@ body[data-theme="dark"] .header .theme-toggle-button:active {
   background-color: rgba(39, 49, 53, 0.9);
 }
 
+@media (max-width: 800px) {
+  .header .search-bar::placeholder {
+    font-size: 12px;
+  }
+}
+
 @media (max-width: 575px) {
   .header {
     padding-left: 8px;
@@ -227,7 +292,21 @@ body[data-theme="dark"] .header .theme-toggle-button:active {
   .header .search-bar {
     height: 34px;
     padding-left: 10px;
+    padding-right: 56px;
     font-size: 13px;
+  }
+
+  .header .search-bar::placeholder {
+    font-size: 11px;
+    letter-spacing: -0.01em;
+  }
+
+  .header .ai-pill {
+    right: 40px;
+    height: 22px;
+    padding: 0 8px;
+    font-size: 10px;
+    border-width: 1.5px;
   }
 
   .header .search-button {
