@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router';
 import Header from '../../components/Header';
 import ProductsGrid from './ProductsGrid';
@@ -8,16 +7,12 @@ import './HomePage.css';
 export function HomePage() {
   const [searchParams] = useSearchParams();
   const search = searchParams.get('search') || undefined;
+  const aiMode = searchParams.get('ai') === 'true';
 
   const { data: products = [] } = useGetProducts(search);
-  const [aiMode, setAiMode] = useState(false);
   const { data: aiProducts = [], isFetching: aiLoading } = useAiSearch(
-    aiMode ? search : undefined,
+    aiMode && search ? search : undefined,
   );
-
-  useEffect(() => {
-    if (!search) setAiMode(false);
-  }, [search]);
 
   return (
     <>
@@ -25,21 +20,16 @@ export function HomePage() {
       <link rel='icon' href='home-favicon.png' type='image/png' />
       <Header />
       <div className='home-page' data-testid='home-page'>
-        <div className='ai-search-toggle'>
-          <button
-            className={`ai-toggle-button ${aiMode ? 'active' : ''}`}
-            onClick={() => setAiMode((prev) => !prev)}
-          >
-            {aiMode ? 'AI Search ON' : 'AI Search OFF'}
-          </button>
-          {aiMode && aiLoading && (
-            <span className='ai-loading-text'>Searching with AI...</span>
-          )}
-          {aiMode && !aiLoading && aiProducts.length === 0 && search && (
-            <span className='ai-no-results'>No AI matches found</span>
-          )}
-        </div>
-        <ProductsGrid products={aiMode ? aiProducts : products} />
+        {aiMode && aiLoading ? (
+          <div className='ai-status-text'>Searching with AI...</div>
+        ) : (
+          <ProductsGrid products={aiMode ? aiProducts : products} />
+        )}
+        {aiMode && !aiLoading && aiProducts.length === 0 && search && (
+          <div className='ai-status-text'>
+            No AI matches found for "{search}"
+          </div>
+        )}
       </div>
     </>
   );

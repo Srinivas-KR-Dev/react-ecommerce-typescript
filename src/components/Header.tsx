@@ -10,8 +10,9 @@ import './Header.css';
 
 function Header() {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const searchText = searchParams.get('search');
+  const aiMode = searchParams.get('ai') === 'true';
   const [search, setSearch] = useState(searchText ?? '');
   const { data: cart = [] } = useGetCartItems();
   const { theme, toggleTheme } = useTheme();
@@ -35,6 +36,17 @@ function Header() {
 
     // Encode to keep special characters (spaces, %) from breaking the query string.
     navigate(`/?search=${encodeURIComponent(trimmed)}`);
+  };
+
+  const toggleAiMode = () => {
+    if (!searchText?.trim()) return;
+    const newParams = new URLSearchParams(searchParams);
+    if (aiMode) {
+      newParams.delete('ai');
+    } else {
+      newParams.set('ai', 'true');
+    }
+    setSearchParams(newParams);
   };
 
   let totalQuantity = 0;
@@ -64,11 +76,28 @@ function Header() {
         <input
           className='search-bar'
           type='text'
-          placeholder='Search'
+          placeholder='Search or try "shoes under ₹1500"'
           value={search}
           onChange={updateSearchInput}
+          onKeyDown={(e) => e.key === 'Enter' && searchProducts()}
           aria-label='Search products'
         />
+
+        <button
+          className={`ai-pill ${aiMode ? 'active' : ''}`}
+          onClick={toggleAiMode}
+          type='button'
+          title={
+            !searchText?.trim()
+              ? 'Type a search query first'
+              : aiMode
+                ? 'AI Search is ON'
+                : 'Switch to AI Search'
+          }
+          aria-label='Toggle AI search'
+        >
+          AI
+        </button>
 
         <button
           className='search-button'
