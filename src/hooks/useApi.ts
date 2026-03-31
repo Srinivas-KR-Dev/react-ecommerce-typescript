@@ -52,6 +52,7 @@ export const useAiSearch = (query?: string) => {
     },
     enabled: !!query?.trim(),
     staleTime: 1000 * 60 * 5,
+    retry: false,
   });
 };
 

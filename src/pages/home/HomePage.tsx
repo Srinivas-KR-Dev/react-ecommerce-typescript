@@ -10,7 +10,11 @@ export function HomePage() {
   const aiMode = searchParams.get('ai') === 'true';
 
   const { data: products = [] } = useGetProducts(search);
-  const { data: aiProducts = [], isFetching: aiLoading } = useAiSearch(
+  const {
+    data: aiProducts = [],
+    isFetching: aiLoading,
+    isError: aiError,
+  } = useAiSearch(
     aiMode && search ? search : undefined,
   );
 
@@ -28,6 +32,12 @@ export function HomePage() {
         {aiMode && !aiLoading && aiProducts.length === 0 && search && (
           <div className='ai-status-text'>
             No AI matches found for "{search}"
+          </div>
+        )}
+        {aiMode && aiError && (
+          <div className='ai-status-text'>
+            AI search is temporarily unavailable. Try again in a few minutes
+            or use regular search.
           </div>
         )}
       </div>
