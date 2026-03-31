@@ -41,6 +41,20 @@ export const useGetProducts = (search?: string) => {
   });
 };
 
+export const useAiSearch = (query?: string) => {
+  return useQuery({
+    queryKey: ['ai-search', query],
+    queryFn: async () => {
+      const response = await axios.get(
+        `/api/ai-search?query=${encodeURIComponent(query ?? '')}`,
+      );
+      return response.data;
+    },
+    enabled: !!query?.trim(),
+    staleTime: 1000 * 60 * 5,
+  });
+};
+
 /**
  * Fetch delivery options with expanded data
  */
