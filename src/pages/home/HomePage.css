@@ -155,3 +155,38 @@
   height: 34px;
   margin-top: 1px;
 }
+
+.home-page .ai-search-toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 0 24px;
+}
+
+.home-page .ai-toggle-button {
+  padding: 6px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.home-page .ai-toggle-button.active {
+  background: var(--accent);
+  color: #fff;
+}
+
+.home-page .ai-toggle-button:hover {
+  opacity: 0.85;
+}
+
+.home-page .ai-loading-text,
+.home-page .ai-no-results {
+  font-size: 13px;
+  color: var(--text-muted);
+}
