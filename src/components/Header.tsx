@@ -91,7 +91,7 @@ function Header() {
           aria-label='Search with AI'
         >
           <span className='ai-pill-icon' aria-hidden='true'>
-            ✦
+            {'\u2726'}
           </span>
           <span>AI Search</span>
         </button>
@@ -129,4 +129,5 @@ function Header() {
 }
 
 export default Header;
+
 
