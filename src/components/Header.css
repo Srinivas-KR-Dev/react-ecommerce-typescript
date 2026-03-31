@@ -92,7 +92,7 @@
   height: 40px;
   box-sizing: border-box;
   padding-left: 15px;
-  padding-right: 70px;
+  padding-right: 122px;
   border: 1px solid var(--border-color);
   border-right: none;
   background-color: var(--header-search-bg);
@@ -123,8 +123,17 @@
   white-space: nowrap;
   z-index: 1;
   box-shadow: 0 0 0 0px var(--accent);
-  animation: ai-pulse 1.8s ease-out 1s 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  animation: ai-pulse 1.4s ease-out 0.8s 1;
   animation-fill-mode: backwards;
+}
+
+.header .ai-pill-icon {
+  font-size: 10px;
+  line-height: 1;
+  transform: translateY(-0.5px);
 }
 
 .header .ai-pill:hover {
@@ -292,7 +301,7 @@ body[data-theme="dark"] .header .theme-toggle-button:active {
   .header .search-bar {
     height: 34px;
     padding-left: 10px;
-    padding-right: 56px;
+    padding-right: 92px;
     font-size: 13px;
   }
 
@@ -305,8 +314,13 @@ body[data-theme="dark"] .header .theme-toggle-button:active {
     right: 40px;
     height: 22px;
     padding: 0 8px;
-    font-size: 10px;
+    font-size: 8px;
     border-width: 1.5px;
+    gap: 4px;
+  }
+
+  .header .ai-pill-icon {
+    font-size: 8px;
   }
 
   .header .search-button {

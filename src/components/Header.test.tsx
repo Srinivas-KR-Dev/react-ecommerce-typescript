@@ -167,4 +167,34 @@ describe('Header component', () => {
     expect(screen.getByTestId('location-display')).toHaveTextContent('/');
     expect(screen.getByTestId('location-display')).not.toHaveTextContent('?search=');
   });
+
+  it('searches with AI when clicking the AI button', async () => {
+    render(
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider>
+          <MemoryRouter initialEntries={['/']}>
+            <Routes>
+              <Route
+                path='/'
+                element={
+                  <>
+                    <Header />
+                    <LocationDisplay />
+                  </>
+                }
+              />
+            </Routes>
+          </MemoryRouter>
+        </ThemeProvider>
+      </QueryClientProvider>,
+    );
+
+    const searchInput = screen.getByRole('textbox', { name: 'Search products' });
+    await user.type(searchInput, 'running shoes');
+    await user.click(screen.getByRole('button', { name: 'Search with AI' }));
+
+    expect(screen.getByTestId('location-display')).toHaveTextContent(
+      '/?search=running%20shoes&ai=true',
+    );
+  });
 });

@@ -10,7 +10,7 @@ import './Header.css';
 
 function Header() {
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const searchText = searchParams.get('search');
   const aiMode = searchParams.get('ai') === 'true';
   const [search, setSearch] = useState(searchText ?? '');
@@ -38,17 +38,11 @@ function Header() {
     navigate(`/?search=${encodeURIComponent(trimmed)}`);
   };
 
-  const toggleAiMode = () => {
+  const searchWithAi = () => {
     const trimmed = search.trim();
     if (!trimmed) return;
 
-    if (aiMode) {
-      // Turn AI off — keep search param, remove ai param
-      navigate(`/?search=${encodeURIComponent(trimmed)}`);
-    } else {
-      // Turn AI on — set both search and ai params
-      navigate(`/?search=${encodeURIComponent(trimmed)}&ai=true`);
-    }
+    navigate(`/?search=${encodeURIComponent(trimmed)}&ai=true`);
   };
 
   let totalQuantity = 0;
@@ -87,18 +81,19 @@ function Header() {
 
         <button
           className={`ai-pill ${aiMode ? 'active' : ''}`}
-          onClick={toggleAiMode}
+          onClick={searchWithAi}
           type='button'
           title={
-            !searchText?.trim()
+            !search.trim()
               ? 'Type a search query first'
-              : aiMode
-                ? 'AI Search is ON'
-                : 'Switch to AI Search'
+              : 'Search with AI'
           }
-          aria-label='Toggle AI search'
+          aria-label='Search with AI'
         >
-          AI
+          <span className='ai-pill-icon' aria-hidden='true'>
+            ✦
+          </span>
+          <span>AI Search</span>
         </button>
 
         <button
@@ -134,3 +129,4 @@ function Header() {
 }
 
 export default Header;
+
