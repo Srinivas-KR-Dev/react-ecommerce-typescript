@@ -2,9 +2,7 @@ import { useEffect, useState, type ChangeEvent } from 'react';
 import { NavLink, useNavigate, useSearchParams } from 'react-router';
 import CartIcon from '../assets/images/icons/cart-icon.png';
 import SearchIcon from '../assets/images/icons/search-icon.png';
-import LogoDark from '../assets/images/logo-dark.svg';
 import LogoLight from '../assets/images/logo-light.svg';
-import MobileLogoDark from '../assets/images/mobile-logo-dark.svg';
 import MobileLogoLight from '../assets/images/mobile-logo-light.svg';
 import { useTheme } from '../context/ThemeContext';
 import { useGetCartItems } from '../hooks/useApi';
@@ -51,12 +49,12 @@ function Header() {
         <NavLink to='/' className='header-link'>
           <img
             className='logo'
-            src={theme === 'dark' ? LogoLight : LogoDark}
+            src={LogoLight}
             alt='Srinivas KR Dev logo'
           />
           <img
             className='mobile-logo'
-            src={theme === 'dark' ? MobileLogoLight : MobileLogoDark}
+            src={MobileLogoLight}
             alt='S KR Dev logo'
           />
         </NavLink>
