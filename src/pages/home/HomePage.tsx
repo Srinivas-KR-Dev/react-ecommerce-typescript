@@ -26,6 +26,11 @@ export function HomePage() {
       <div className='home-page' data-testid='home-page'>
         {aiMode && aiLoading ? (
           <div className='ai-status-text'>Searching with AI...</div>
+        ) : !aiMode && search && products.length === 0 ? (
+          <div className='ai-status-text'>
+            No products matched "{search}". Try another keyword or use AI
+            search for a broader match.
+          </div>
         ) : (
           <ProductsGrid products={aiMode ? aiProducts : products} />
         )}
