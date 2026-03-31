@@ -24,6 +24,9 @@ export function HomePage() {
       <link rel='icon' href='home-favicon.png' type='image/png' />
       <Header />
       <div className='home-page' data-testid='home-page'>
+        {aiMode && search && !aiLoading && !aiError && (
+          <div className='ai-results-banner'>AI Search Results for "{search}"</div>
+        )}
         {aiMode && aiLoading ? (
           <div className='ai-status-text'>Searching with AI...</div>
         ) : !aiMode && search && products.length === 0 ? (
