@@ -1,5 +1,5 @@
 .home-page {
-  margin-top: 60px;
+  margin-top: 80px;
 }
 
 .home-page .products-grid {
@@ -161,7 +161,7 @@
   align-items: center;
   gap: 12px;
   margin-bottom: 16px;
-  padding: 0 24px;
+  padding: 12px 24px 0 24px;
 }
 
 .home-page .ai-toggle-button {

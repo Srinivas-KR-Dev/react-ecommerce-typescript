@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router';
 import Header from '../../components/Header';
 import ProductsGrid from './ProductsGrid';
@@ -14,6 +14,10 @@ export function HomePage() {
   const { data: aiProducts = [], isFetching: aiLoading } = useAiSearch(
     aiMode ? search : undefined,
   );
+
+  useEffect(() => {
+    if (!search) setAiMode(false);
+  }, [search]);
 
   return (
     <>
