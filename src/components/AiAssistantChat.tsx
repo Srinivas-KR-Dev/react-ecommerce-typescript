@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react';
-import { useAiAssistant } from '../hooks/useApi';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { useAddToCart, useAiAssistant } from '../hooks/useApi';
 import type { Product } from '../types/product';
 import { formatMoney } from '../utils/money';
 import './AiAssistantChat.css';
@@ -21,9 +21,31 @@ function AiAssistantChat() {
     },
   ]);
   const [suggestedProducts, setSuggestedProducts] = useState<Product[]>([]);
+  const [addedProductId, setAddedProductId] = useState<string | null>(null);
+  const [cartError, setCartError] = useState<string | null>(null);
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+  const addedMessageTimeoutRef = useRef<number | null>(null);
   const aiAssistantMutation = useAiAssistant();
+  const addToCartMutation = useAddToCart();
 
   const canSend = input.trim().length > 0 && !aiAssistantMutation.isPending;
+
+  useEffect(() => {
+    if (!isOpen || !scrollContainerRef.current) {
+      return;
+    }
+
+    scrollContainerRef.current.scrollTop =
+      scrollContainerRef.current.scrollHeight;
+  }, [isOpen, messages, suggestedProducts]);
+
+  useEffect(() => {
+    return () => {
+      if (addedMessageTimeoutRef.current !== null) {
+        window.clearTimeout(addedMessageTimeoutRef.current);
+      }
+    };
+  }, []);
 
   const assistantStatus = useMemo(() => {
     if (aiAssistantMutation.isPending) {
@@ -79,6 +101,29 @@ function AiAssistantChat() {
     }
   };
 
+  const addSuggestedProductToCart = async (productId: string) => {
+    try {
+      await addToCartMutation.mutateAsync({
+        productId,
+        quantity: 1,
+      });
+      setCartError(null);
+      setAddedProductId(productId);
+
+      if (addedMessageTimeoutRef.current !== null) {
+        window.clearTimeout(addedMessageTimeoutRef.current);
+      }
+
+      addedMessageTimeoutRef.current = window.setTimeout(() => {
+        setAddedProductId(null);
+        addedMessageTimeoutRef.current = null;
+      }, 2000);
+    } catch (error) {
+      console.error('Failed to add suggested product to cart:', error);
+      setCartError('Could not add that product to cart right now.');
+    }
+  };
+
   return (
     <div className={`ai-assistant ${isOpen ? 'open' : ''}`}>
       {isOpen && (
@@ -99,35 +144,52 @@ function AiAssistantChat() {
             </button>
           </div>
 
-          <div className='ai-assistant-messages'>
-            {messages.map((message) => (
-              <div
-                key={message.id}
-                className={`ai-assistant-message ai-assistant-message-${message.role}`}
-              >
-                {message.text}
-              </div>
-            ))}
-          </div>
-
-          {suggestedProducts.length > 0 && (
-            <div className='ai-assistant-products'>
-              <div className='ai-assistant-products-title'>Suggested Products</div>
-              <div className='ai-assistant-products-list'>
-                {suggestedProducts.map((product) => (
-                  <div className='ai-assistant-product-card' key={product.id}>
-                    <img src={product.image} alt={product.name} />
-                    <div className='ai-assistant-product-info'>
-                      <div className='ai-assistant-product-name'>{product.name}</div>
-                      <div className='ai-assistant-product-price'>
-                        {formatMoney(product.priceCents)}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+          <div className='ai-assistant-body' ref={scrollContainerRef}>
+            <div className='ai-assistant-messages'>
+              {messages.map((message) => (
+                <div
+                  key={message.id}
+                  className={`ai-assistant-message ai-assistant-message-${message.role}`}
+                >
+                  {message.text}
+                </div>
+              ))}
+              {aiAssistantMutation.isPending && (
+                <div className='ai-assistant-message ai-assistant-message-assistant ai-assistant-message-thinking'>
+                  <span className='ai-assistant-thinking-dot'></span>
+                  <span className='ai-assistant-thinking-dot'></span>
+                  <span className='ai-assistant-thinking-dot'></span>
+                </div>
+              )}
             </div>
-          )}
+
+            {suggestedProducts.length > 0 && (
+              <div className='ai-assistant-products'>
+                <div className='ai-assistant-products-title'>Suggested Products</div>
+                <div className='ai-assistant-products-list'>
+                  {suggestedProducts.map((product) => (
+                    <div className='ai-assistant-product-card' key={product.id}>
+                      <img src={product.image} alt={product.name} />
+                      <div className='ai-assistant-product-info'>
+                        <div className='ai-assistant-product-name'>{product.name}</div>
+                        <div className='ai-assistant-product-price'>
+                          {formatMoney(product.priceCents)}
+                        </div>
+                      </div>
+                      <button
+                        className='ai-assistant-product-action button-primary'
+                        type='button'
+                        onClick={() => addSuggestedProductToCart(product.id)}
+                        disabled={addToCartMutation.isPending}
+                      >
+                        {addedProductId === product.id ? 'Added' : 'Add to Cart'}
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
 
           <div className='ai-assistant-input-row'>
             <input
@@ -148,6 +210,7 @@ function AiAssistantChat() {
               Send
             </button>
           </div>
+          {cartError && <div className='ai-assistant-cart-error'>{cartError}</div>}
         </div>
       )}
 
