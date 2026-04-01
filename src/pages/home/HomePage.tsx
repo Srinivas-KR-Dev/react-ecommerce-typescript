@@ -1,4 +1,5 @@
 import { useSearchParams } from 'react-router';
+import AiAssistantChat from '../../components/AiAssistantChat';
 import Header from '../../components/Header';
 import ProductsGrid from './ProductsGrid';
 import { useAiSearch, useGetProducts } from '../../hooks/useApi';
@@ -49,6 +50,7 @@ export function HomePage() {
           </div>
         )}
       </div>
+      <AiAssistantChat />
     </>
   );
 }

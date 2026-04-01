@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import type { Cart, CartItem } from '../types/cart';
+import type { AiAssistantResponse } from '../types/aiAssistant';
 import type { DeliveryOptions } from '../types/deliveryOptions';
 import type { Order, Orders } from '../types/orders';
 import type { PaymentSummary } from '../types/paymentSummary';
@@ -53,6 +54,19 @@ export const useAiSearch = (query?: string) => {
     enabled: !!query?.trim(),
     staleTime: 1000 * 60 * 30,
     gcTime: 1000 * 60 * 60,
+    retry: false,
+  });
+};
+
+export const useAiAssistant = () => {
+  return useMutation<AiAssistantResponse, Error, string>({
+    mutationFn: async (message: string): Promise<AiAssistantResponse> => {
+      const response = await axios.post<AiAssistantResponse>(
+        `${API_BASE_URL}/ai-assistant`,
+        { message },
+      );
+      return response.data;
+    },
     retry: false,
   });
 };

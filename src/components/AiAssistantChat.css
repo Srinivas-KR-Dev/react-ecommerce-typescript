@@ -1,0 +1,215 @@
+.ai-assistant {
+  position: fixed;
+  right: 18px;
+  bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  z-index: 1200;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  gap: 12px;
+}
+
+.ai-assistant-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 0 16px;
+  border-radius: 999px;
+  border: 1.5px solid var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, var(--surface-1));
+  color: var(--accent);
+  font-weight: 800;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.18);
+}
+
+.ai-assistant-trigger:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+.ai-assistant-trigger-icon {
+  width: 14px;
+  height: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  line-height: 1;
+}
+
+.ai-assistant-panel {
+  width: min(360px, calc(100vw - 24px));
+  max-height: min(620px, calc(100vh - 120px));
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border-color);
+  border-radius: 18px;
+  background: var(--surface-1);
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.18);
+  overflow: hidden;
+}
+
+.ai-assistant-panel-header {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 18px 14px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.ai-assistant-title {
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.ai-assistant-subtitle {
+  margin-top: 4px;
+  color: var(--text-muted);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.ai-assistant-close {
+  border: 1px solid var(--border-color);
+  background: var(--surface-2);
+  color: var(--text-primary);
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.ai-assistant-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px 18px;
+  overflow: auto;
+}
+
+.ai-assistant-message {
+  max-width: 88%;
+  padding: 12px 14px;
+  border-radius: 16px;
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.ai-assistant-message-assistant {
+  align-self: start;
+  background: var(--surface-2);
+  color: var(--text-primary);
+}
+
+.ai-assistant-message-user {
+  align-self: end;
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.ai-assistant-products {
+  padding: 0 18px 16px;
+}
+
+.ai-assistant-products-title {
+  margin-bottom: 10px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.ai-assistant-products-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ai-assistant-product-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  background: var(--surface-2);
+}
+
+.ai-assistant-product-card img {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  border-radius: 10px;
+  background: var(--surface-1);
+}
+
+.ai-assistant-product-info {
+  min-width: 0;
+}
+
+.ai-assistant-product-name {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.ai-assistant-product-price {
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--accent);
+  font-weight: 800;
+}
+
+.ai-assistant-input-row {
+  display: flex;
+  gap: 10px;
+  padding: 16px 18px 18px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.ai-assistant-input {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background: var(--surface-2);
+  color: var(--text-primary);
+  padding: 0 14px;
+  height: 44px;
+}
+
+.ai-assistant-send {
+  min-width: 78px;
+  height: 44px;
+  padding: 0 16px;
+  font-weight: 800;
+}
+
+.ai-assistant-send:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 575px) {
+  .ai-assistant {
+    right: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    left: 12px;
+    align-items: stretch;
+  }
+
+  .ai-assistant-trigger {
+    align-self: end;
+    min-height: 44px;
+    padding: 0 14px;
+    font-size: 13px;
+  }
+
+  .ai-assistant-panel {
+    width: 100%;
+    max-height: min(560px, calc(100vh - 110px));
+  }
+}
