@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router';
+import AiAssistantChat from './components/AiAssistantChat';
 import { HomePage } from './pages/home/HomePage';
 import { CheckoutPage } from './pages/checkout/CheckoutPage';
 import { OrdersPage } from './pages/orders/OrdersPage';
@@ -16,6 +17,7 @@ function App() {
         <Route path='tracking/:orderId/:productId' element={<TrackingPage />} />
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
+      <AiAssistantChat />
     </>
   );
 }
