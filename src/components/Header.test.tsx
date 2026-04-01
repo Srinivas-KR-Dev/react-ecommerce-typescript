@@ -109,6 +109,35 @@ describe('Header component', () => {
     expect(screen.getByRole('button', { name: 'Dark' })).toBeInTheDocument();
   });
 
+  it('disables AI search when the input is empty', async () => {
+    render(
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider>
+          <MemoryRouter initialEntries={['/?search=socks&ai=true']}>
+            <Routes>
+              <Route
+                path='/'
+                element={
+                  <>
+                    <Header />
+                    <LocationDisplay />
+                  </>
+                }
+              />
+            </Routes>
+          </MemoryRouter>
+        </ThemeProvider>
+      </QueryClientProvider>,
+    );
+
+    const searchInput = screen.getByRole('textbox', { name: 'Search products' });
+    const aiSearchButton = screen.getByRole('button', { name: 'Search with AI' });
+
+    await user.clear(searchInput);
+
+    expect(aiSearchButton).toBeDisabled();
+  });
+
   it('searches products when clicking the search button', async () => {
     render(
       <QueryClientProvider client={queryClient}>

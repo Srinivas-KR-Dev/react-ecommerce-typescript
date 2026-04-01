@@ -160,6 +160,15 @@
   color: #fff;
 }
 
+.header .ai-pill:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  background: transparent;
+  border-color: var(--border-color);
+  color: var(--header-search-text);
+  box-shadow: none;
+}
+
 .header .search-button {
   background-color: var(--header-search-button-bg);
   border: 1px solid var(--border-color);

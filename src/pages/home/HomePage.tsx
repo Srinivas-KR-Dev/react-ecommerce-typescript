@@ -37,7 +37,7 @@ export function HomePage() {
         ) : (
           <ProductsGrid products={aiMode ? aiProducts : products} />
         )}
-        {aiMode && !aiLoading && aiProducts.length === 0 && search && (
+        {aiMode && !aiLoading && !aiError && aiProducts.length === 0 && search && (
           <div className='ai-status-text'>
             No AI matches found for "{search}"
           </div>

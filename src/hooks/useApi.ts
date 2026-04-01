@@ -51,7 +51,8 @@ export const useAiSearch = (query?: string) => {
       return response.data;
     },
     enabled: !!query?.trim(),
-    staleTime: 1000 * 60 * 5,
+    staleTime: 1000 * 60 * 30,
+    gcTime: 1000 * 60 * 60,
     retry: false,
   });
 };

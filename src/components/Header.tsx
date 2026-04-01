@@ -83,6 +83,7 @@ function Header() {
           className={`ai-pill ${aiMode ? 'active' : ''}`}
           onClick={searchWithAi}
           type='button'
+          disabled={!search.trim()}
           title={
             !search.trim()
               ? 'Type a search query first'
