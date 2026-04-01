@@ -28,9 +28,9 @@ export function HomePage() {
           <div className='ai-results-banner'>AI Search Results for "{search}"</div>
         )}
         {aiMode && aiLoading ? (
-          <div className='ai-status-text'>Searching with AI...</div>
+          <div className='ai-status-text ai-status-info'>Searching with AI...</div>
         ) : !aiMode && search && products.length === 0 ? (
-          <div className='ai-status-text'>
+          <div className='ai-status-text ai-status-empty'>
             No products matched "{search}". Try another keyword or use AI
             search for a broader match.
           </div>
@@ -38,12 +38,12 @@ export function HomePage() {
           <ProductsGrid products={aiMode ? aiProducts : products} />
         )}
         {aiMode && !aiLoading && !aiError && aiProducts.length === 0 && search && (
-          <div className='ai-status-text'>
+          <div className='ai-status-text ai-status-empty'>
             No AI matches found for "{search}"
           </div>
         )}
         {aiMode && aiError && (
-          <div className='ai-status-text'>
+          <div className='ai-status-text ai-status-warning'>
             AI search is temporarily unavailable. Try again in a few minutes
             or use regular search.
           </div>

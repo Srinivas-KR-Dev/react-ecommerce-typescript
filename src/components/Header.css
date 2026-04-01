@@ -118,7 +118,10 @@
   font-weight: 800;
   letter-spacing: 0.06em;
   cursor: pointer;
-  transition: background 0.15s, color 0.15s, border-color 0.15s,
+  transition:
+    background 0.15s,
+    color 0.15s,
+    border-color 0.15s,
     box-shadow 0.15s;
   white-space: nowrap;
   z-index: 1;
@@ -158,15 +161,6 @@
 .header .ai-pill.active:hover {
   opacity: 0.88;
   color: #fff;
-}
-
-.header .ai-pill:disabled {
-  opacity: 0.35;
-  cursor: not-allowed;
-  background: transparent;
-  border-color: var(--border-color);
-  color: var(--header-search-text);
-  box-shadow: none;
 }
 
 .header .search-button {

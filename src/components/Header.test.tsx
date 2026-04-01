@@ -109,7 +109,7 @@ describe('Header component', () => {
     expect(screen.getByRole('button', { name: 'Dark' })).toBeInTheDocument();
   });
 
-  it('disables AI search when the input is empty', async () => {
+  it('focuses the search input when AI search is clicked with empty input', async () => {
     render(
       <QueryClientProvider client={queryClient}>
         <ThemeProvider>
@@ -134,8 +134,9 @@ describe('Header component', () => {
     const aiSearchButton = screen.getByRole('button', { name: 'Search with AI' });
 
     await user.clear(searchInput);
+    await user.click(aiSearchButton);
 
-    expect(aiSearchButton).toBeDisabled();
+    expect(searchInput).toHaveFocus();
   });
 
   it('searches products when clicking the search button', async () => {

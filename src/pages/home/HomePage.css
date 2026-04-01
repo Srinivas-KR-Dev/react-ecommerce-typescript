@@ -157,9 +157,31 @@
 }
 
 .home-page .ai-status-text {
-  padding: 12px 24px;
-  font-size: 13px;
-  color: var(--text-muted);
+  margin: 0 24px 14px;
+  padding: 16px 18px;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background-color: var(--surface-2);
+  color: var(--text-primary);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.home-page .ai-status-info {
+  border-color: color-mix(in srgb, var(--accent) 20%, var(--border-color));
+  background-color: color-mix(in srgb, var(--accent) 6%, var(--surface-2));
+}
+
+.home-page .ai-status-empty {
+  border-color: var(--border-color);
+  background-color: var(--surface-2);
+}
+
+.home-page .ai-status-warning {
+  border-color: color-mix(in srgb, rgb(214, 118, 46) 35%, var(--border-color));
+  background-color: color-mix(in srgb, rgb(214, 118, 46) 10%, var(--surface-2));
+  color: color-mix(in srgb, rgb(214, 118, 46) 78%, var(--text-primary));
 }
 
 .home-page .ai-results-banner {

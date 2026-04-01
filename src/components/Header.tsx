@@ -1,4 +1,4 @@
-import { useEffect, useState, type ChangeEvent } from 'react';
+import { useEffect, useRef, useState, type ChangeEvent } from 'react';
 import { NavLink, useNavigate, useSearchParams } from 'react-router';
 import CartIcon from '../assets/images/icons/cart-icon.png';
 import SearchIcon from '../assets/images/icons/search-icon.png';
@@ -14,6 +14,7 @@ function Header() {
   const searchText = searchParams.get('search');
   const aiMode = searchParams.get('ai') === 'true';
   const [search, setSearch] = useState(searchText ?? '');
+  const searchInputRef = useRef<HTMLInputElement | null>(null);
   const { data: cart = [] } = useGetCartItems();
   const { theme, toggleTheme } = useTheme();
 
@@ -40,7 +41,10 @@ function Header() {
 
   const searchWithAi = () => {
     const trimmed = search.trim();
-    if (!trimmed) return;
+    if (!trimmed) {
+      searchInputRef.current?.focus();
+      return;
+    }
 
     navigate(`/?search=${encodeURIComponent(trimmed)}&ai=true`);
   };
@@ -71,6 +75,7 @@ function Header() {
       <div className='middle-section'>
         <input
           className='search-bar'
+          ref={searchInputRef}
           type='text'
           placeholder='Search or try "shoes under ₹1500"'
           value={search}
@@ -83,7 +88,6 @@ function Header() {
           className={`ai-pill ${aiMode ? 'active' : ''}`}
           onClick={searchWithAi}
           type='button'
-          disabled={!search.trim()}
           title={
             !search.trim()
               ? 'Type a search query first'
@@ -130,5 +134,6 @@ function Header() {
 }
 
 export default Header;
+
 
 
