@@ -98,7 +98,8 @@ function Header() {
           <span className='ai-pill-icon' aria-hidden='true'>
             {'\u2726'}
           </span>
-          <span>AI Search</span>
+          <span className='ai-pill-label-full'>AI Search</span>
+          <span className='ai-pill-label-short'>AI</span>
         </button>
 
         <button

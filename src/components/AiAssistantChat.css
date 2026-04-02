@@ -285,7 +285,38 @@
 
   .ai-assistant-panel {
     width: 100%;
-    max-height: min(560px, calc(100vh - 110px));
+    max-height: min(420px, 70vh);
+    border-radius: 16px;
+  }
+
+  .ai-assistant-panel-header {
+    padding: 14px 16px 12px;
+  }
+
+  .ai-assistant-messages {
+    padding: 14px 16px;
+    gap: 10px;
+  }
+
+  .ai-assistant-products {
+    padding: 0 16px 14px;
+  }
+
+  .ai-assistant-input-row {
+    padding: 14px 16px 16px;
+    gap: 8px;
+  }
+
+  .ai-assistant-input {
+    height: 40px;
+    padding: 0 12px;
+  }
+
+  .ai-assistant-send {
+    min-width: 72px;
+    height: 40px;
+    padding: 0 14px;
+    font-size: 12px;
   }
 
   .ai-assistant-product-card {
