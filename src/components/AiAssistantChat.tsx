@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useAddToCart, useAiAssistant } from '../hooks/useApi';
 import type { Product } from '../types/product';
 import { formatMoney } from '../utils/money';
@@ -47,17 +47,13 @@ function AiAssistantChat() {
     };
   }, []);
 
-  const assistantStatus = useMemo(() => {
-    if (aiAssistantMutation.isPending) {
-      return 'Thinking...';
-    }
+  let assistantStatus = 'Ask for recommendations, budget picks, or category help.';
 
-    if (aiAssistantMutation.isError) {
-      return 'Assistant is temporarily unavailable.';
-    }
-
-    return 'Ask for recommendations, budget picks, or category help.';
-  }, [aiAssistantMutation.isError, aiAssistantMutation.isPending]);
+  if (aiAssistantMutation.isPending) {
+    assistantStatus = 'Thinking...';
+  } else if (aiAssistantMutation.isError) {
+    assistantStatus = 'Assistant is temporarily unavailable.';
+  }
 
   const submitMessage = async () => {
     const trimmed = input.trim();
@@ -74,6 +70,9 @@ function AiAssistantChat() {
         text: trimmed,
       },
     ]);
+    setSuggestedProducts([]);
+    setAddedProductId(null);
+    setCartError(null);
     setInput('');
 
     try {
