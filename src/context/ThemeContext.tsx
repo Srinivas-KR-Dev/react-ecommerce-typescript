@@ -18,7 +18,11 @@ const THEME_STORAGE_KEY = 'ecommerce-theme';
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 const getInitialTheme = (): Theme => {
-  const storedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+  if (typeof window === 'undefined') {
+    return 'light';
+  }
+
+  const storedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
 
   if (storedTheme === 'light' || storedTheme === 'dark') {
     return storedTheme;
