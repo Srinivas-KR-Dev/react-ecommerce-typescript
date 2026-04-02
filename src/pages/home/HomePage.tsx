@@ -45,7 +45,7 @@ export function HomePage() {
         {aiMode && aiError && (
           <div className='ai-status-text ai-status-warning'>
             AI search is temporarily unavailable. Try again in a few minutes
-            or use regular search.
+            or use regular search or the AI shopping assistant.
           </div>
         )}
       </div>
