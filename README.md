@@ -48,6 +48,14 @@ The screenshots below show the current UI and main user flows.
 
 ![Home page](./screenshots/home.png)
 
+### AI Search Results
+
+![AI Search results](./screenshots/ai-search-result.png)
+
+### AI Shopping Assistant
+
+![AI Shopping Assistant results](./screenshots/ai-assitant-result.png)
+
 ### Checkout
 
 ![Checkout page](./screenshots/checkout.png)
