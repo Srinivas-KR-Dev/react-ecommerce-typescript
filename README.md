@@ -2,23 +2,25 @@
 
 Modern e-commerce web application built with React and TypeScript.
 
-This project includes a complete shopping flow with product browsing, cart management, checkout, order history, package tracking, API integration, INR price display, and dark/light theme support.
+This project includes a complete shopping flow with product browsing, cart management, checkout, order history, package tracking, AI-powered product discovery, and an AI shopping assistant backed by the companion Express + MongoDB API.
 
-This is an ongoing project, and I plan to continue improving features, UI polish, and overall developer experience over time.
+This is an ongoing project, and I plan to continue improving features, UI polish, testing coverage, and overall developer experience over time.
 
 ## Features
 
 - Product listing with search
+- AI Search for natural-language product discovery
+- AI Shopping Assistant for catalog-grounded recommendations
 - Add to cart with quantity selection
 - Shopping cart updates and item removal
 - Delivery option selection
 - Payment summary, INR price display, and order placement
 - Orders history page
 - Package tracking page
-- API integration with Axios
-- Data caching and mutation handling with TanStack Query
-- Floating dark and light theme toggle
+- Dark and light theme support
 - Responsive desktop and mobile layout
+- API integration with Axios
+- Server-state caching and mutation handling with TanStack Query
 
 ## Tech Stack
 
@@ -31,6 +33,7 @@ This is an ongoing project, and I plan to continue improving features, UI polish
 ![TanStack Query](https://img.shields.io/badge/TanStack_Query-FF4154?style=for-the-badge&logo=reactquery&logoColor=white)
 ![Axios](https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white)
 ![Day.js](https://img.shields.io/badge/Day.js-111827?style=for-the-badge&logo=clockify&logoColor=white)
+![React Compiler](https://img.shields.io/badge/React_Compiler-19-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 
 ### Testing
 
@@ -39,7 +42,7 @@ This is an ongoing project, and I plan to continue improving features, UI polish
 
 ## Screenshots
 
-The screenshots below reflect the latest version of the UI.
+The screenshots below show the current UI and main user flows.
 
 ### Home
 
@@ -119,16 +122,34 @@ npm run preview
 npx vitest run
 ```
 
+```bash
+npx vitest
+```
+
+```bash
+npm run lint
+```
+
+Current automated coverage includes core flows for:
+
+- product interactions
+- checkout and payment summary
+- orders and order details
+- tracking loading state
+- header search and AI Search
+- AI Shopping Assistant
+- money formatting
+
 ## Project Structure
 
 ```text
 src/
-  components/   Shared UI components
-  context/      Theme context
-  hooks/        API hooks with React Query
-  pages/        Home, checkout, orders, tracking, not found
-  types/        Shared TypeScript models
-  utils/        Helpers and query client setup
+  components/   Shared UI components (Header, AiAssistantChat, ErrorBoundary)
+  context/      React context for theme management
+  hooks/        TanStack Query hooks for API calls and mutations
+  pages/        Route-level page components
+  types/        Shared TypeScript interfaces and models
+  utils/        Money formatting and query client setup
 ```
 
 ## Main Routes
@@ -141,6 +162,8 @@ src/
 ## Notes
 
 - Theme preference is stored locally.
+- AI Search and the AI Shopping Assistant are grounded on catalog data from the backend.
+- Built a lightweight RAG-style shopping assistant that retrieves relevant products from the catalog and grounds Gemini responses in that product context.
 - Server state is managed with React Query.
 - `npm run build` outputs directly into the backend's `dist/` folder (`../ecomm-backend-MongoDB/dist`), where Express serves it as static files on the same origin, so `/api` and `/images` routes resolve automatically with no CORS configuration needed.
 
