@@ -111,8 +111,8 @@ The screenshots below show the current UI and main user flows.
 ## Installation
 
 ```bash
-git clone https://github.com/Srinivas-KR-Dev/react-ecommerce-typescript
-cd react-ecommerce-typescript
+git clone https://github.com/Srinivas-KR-Dev/react-ecommerce-typescript-ai
+cd react-ecommerce-typescript-ai
 npm install
 ```
 
