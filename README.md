@@ -1,6 +1,8 @@
 # React E-Commerce Application
 
-Modern e-commerce web application built with React and TypeScript.
+AI-powered full stack e-commerce application built with React and TypeScript.
+
+This project goes beyond a typical e-commerce app by integrating **AI-driven product search and a conversational shopping assistant**, designed using a retrieval-augmented approach to ensure accurate and context-aware responses.
 
 This project includes a complete shopping flow with product browsing, cart management, checkout, order history, package tracking, AI-powered product discovery, and an AI shopping assistant backed by the companion Express + MongoDB API.
 
@@ -9,8 +11,8 @@ This is an ongoing project, and I plan to continue improving features, UI polish
 ## Features
 
 - Product listing with search
-- AI Search for natural-language product discovery
-- AI Shopping Assistant for catalog-grounded recommendations
+- AI Search (intent-based product discovery beyond keyword matching)
+- AI Search (intent-based product discovery beyond keyword matching)
 - Add to cart with quantity selection
 - Shopping cart updates and item removal
 - Delivery option selection
@@ -21,6 +23,40 @@ This is an ongoing project, and I plan to continue improving features, UI polish
 - Responsive desktop and mobile layout
 - API integration with Axios
 - Server-state caching and mutation handling with TanStack Query
+  
+## 🧠 AI Architecture
+
+This project implements a **retrieval-augmented pattern (RAG-style)** to power AI features.
+
+### Flow:
+
+User Query  
+↓  
+Backend Retrieval (keyword + scoring-based matching)  
+↓  
+Relevant Product Context  
+↓  
+LLM (Google Gemini)  
+↓  
+Grounded AI Response  
+
+### Key Design Decisions:
+
+- Retrieval-first approach to reduce hallucination  
+- Structured prompts to control AI responses  
+- Hybrid system (AI + deterministic ranking) for reliability  
+- Context injection using real catalog data  
+
+This ensures AI responses are accurate, relevant, and production-safe.
+
+## 🎯 Why This Project Matters
+
+- Demonstrates real-world AI integration in a production-style application  
+- Shows how to control and ground LLM responses using backend data  
+- Combines traditional backend engineering with modern AI capabilities  
+- Designed with scalability and reliability in mind  
+
+This project reflects how AI features are built in real applications — not just demos.
 
 ## Tech Stack
 
@@ -54,7 +90,7 @@ The screenshots below show the current UI and main user flows.
 
 ### AI Shopping Assistant
 
-![AI Shopping Assistant results](./screenshots/ai-assitant-result.png)
+![AI Shopping Assistant results](./screenshots/ai-assistant-result.png)
 
 ### Checkout
 
@@ -171,16 +207,21 @@ src/
 
 - Theme preference is stored locally.
 - AI Search and the AI Shopping Assistant are grounded on catalog data from the backend.
-- Built a lightweight RAG-style shopping assistant that retrieves relevant products from the catalog and grounds Gemini responses in that product context.
+- The AI Shopping Assistant is mounted globally, so it stays available across the main routes.
+- The AI Shopping Assistant uses a lightweight RAG-style architecture — relevant products are retrieved from the catalog and used to ground Gemini responses, reducing hallucination and improving answer accuracy.
 - Server state is managed with React Query.
 - `npm run build` outputs directly into the backend's `dist/` folder (`../ecomm-backend-MongoDB/dist`), where Express serves it as static files on the same origin, so `/api` and `/images` routes resolve automatically with no CORS configuration needed.
 
 ## Live Demo
 
-https://srinivaskr.live
+**[srinivaskr.live](https://srinivaskr.live)**  
+Deployed on AWS Elastic Beanstalk · MongoDB Atlas · SSL enabled
 
 Deployed using AWS Elastic Beanstalk, with MongoDB Atlas Cloud as the database and SSL certificate enabled for secure access.
 
 ## Author
+**Srinivas K R** — [LinkedIn](https://www.linkedin.com/in/srinivas-kr-dev) · [GitHub](https://github.com/Srinivas-KR-Dev)
 
-Srinivas-KR-DEV
+**Companion repos:**
+- [Backend — MongoDB + Mongoose](https://github.com/Srinivas-KR-Dev/ecommerce-backend-mongodb)
+- [Backend — PostgreSQL + Prisma](https://github.com/Srinivas-KR-Dev/ecommerce-backend-postgres-prisma)
